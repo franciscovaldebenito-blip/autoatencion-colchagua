@@ -61,56 +61,67 @@
     .client-card { 
       background: var(--surface); 
       border-radius: 16px; 
-      padding: 28px; 
+      padding: 20px 24px; 
       border: 1px solid var(--border-color);
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03); 
       margin-bottom: 24px; 
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      gap: 28px;
     }
     
-    .client-name { font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 4px; }
-    .client-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
+    .client-name { font-size: 20px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 2px; }
+    .client-sub { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 14px; }
 
-    .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; border-top: 1px solid var(--border-color); padding-top: 18px; }
+    /* Contenedor Horizontal para las 4 Tarjetas */
+    .kpi-grid { 
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 12px; 
+      border-top: 1px solid var(--border-color); 
+      padding-top: 14px; 
+    }
     
-    .kpi-box { background: #f8fafc; padding: 12px 14px; border-radius: 12px; border: 1px solid #f1f5f9; }
+    .kpi-box { 
+      background: #f8fafc; 
+      padding: 10px 12px; 
+      border-radius: 12px; 
+      border: 1px solid #f1f5f9; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .kpi-title { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .kpi-value { font-size: 13px; font-weight: 700; color: var(--text-main); }
+    .kpi-value { font-size: 12px; font-weight: 700; color: var(--text-main); line-height: 1.3; }
     
-    .status-badge-vencido { color: var(--danger); font-weight: 700; background: var(--danger-bg); padding: 2px 8px; border-radius: 6px; font-size: 12px; }
-    .status-badge-vigente { color: var(--success); font-weight: 700; background: var(--success-bg); padding: 2px 8px; border-radius: 6px; font-size: 12px; }
+    .status-badge-vencido { color: var(--danger); font-weight: 700; background: var(--danger-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
+    .status-badge-vigente { color: var(--success); font-weight: 700; background: var(--success-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
 
-    /* Resumen Pedido Card */
+    /* Resumen Pedido Card dentro del grid horizontal */
     .cart-summary-box { 
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border: 1.5px solid var(--border-color); 
-      border-radius: 14px; 
-      padding: 18px; 
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      border-radius: 12px; 
+      padding: 10px 12px; 
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      color: white;
     }
-    .cart-label { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
-    .cart-badge { background-color: var(--danger); color: white; font-size: 11px; font-weight: 800; border-radius: 20px; padding: 2px 8px; display: inline-flex; justify-content: center; align-items: center; margin-left: 4px; }
-    .cart-total { font-size: 32px; font-weight: 900; color: var(--primary); margin: 4px 0; letter-spacing: -1px; }
+    .cart-label { font-size: 10px; font-weight: 800; color: #93c5fd; letter-spacing: 0.5px; text-transform: uppercase; }
+    .cart-badge { background-color: var(--danger); color: white; font-size: 10px; font-weight: 800; border-radius: 20px; padding: 1px 6px; display: inline-flex; justify-content: center; align-items: center; margin-left: 4px; }
+    .cart-total { font-size: 20px; font-weight: 900; color: #ffffff; margin: 2px 0; letter-spacing: -0.5px; }
     .cart-link-btn { 
       width: 100%;
-      background: var(--primary); 
-      color: white; 
-      font-size: 13px; 
-      font-weight: 700; 
-      padding: 10px; 
-      border-radius: 8px; 
+      background: #ffffff; 
+      color: var(--primary-dark); 
+      font-size: 11px; 
+      font-weight: 800; 
+      padding: 6px 10px; 
+      border-radius: 6px; 
       border: none;
       cursor: pointer; 
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
     }
-    .cart-link-btn:hover { background: var(--primary-dark); }
+    .cart-link-btn:hover { background: #f1f5f9; }
 
     /* Filtros y Búsqueda */
     .filter-bar { display: flex; gap: 14px; margin-bottom: 16px; align-items: center; }
@@ -218,12 +229,11 @@
     .btn-submit:hover { background: var(--primary-dark); }
     .btn-close { width: 100%; background: transparent; color: var(--text-muted); border: none; padding: 10px; margin-top: 4px; font-size: 13px; cursor: pointer; text-align: center; font-weight: 600; }
 
-    @media (max-width: 900px) {
-      .client-card { grid-template-columns: 1fr; }
+    @media (max-width: 850px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+    @media (max-width: 550px) {
       .kpi-grid { grid-template-columns: 1fr; }
-      .cart-summary-box { flex-direction: row; justify-content: space-between; padding: 14px; }
-      .cart-total { font-size: 24px; margin: 0; }
-      .cart-link-btn { width: auto; padding: 8px 16px; }
     }
   </style>
 </head>
@@ -243,45 +253,45 @@
     </header>
 
     <div class="client-card">
-      <div>
-        <h1 id="cliNombre" class="client-name">Cargando...</h1>
-        <div id="cliSub" class="client-sub">RUT: -</div>
+      <h1 id="cliNombre" class="client-name">Cargando...</h1>
+      <div id="cliSub" class="client-sub">RUT: -</div>
 
-        <div class="kpi-grid">
-          <div class="kpi-box">
-            <div class="kpi-title">Crédito / Condición</div>
-            <div class="kpi-value"><span id="cliCondicion">-</span> • $<span id="cliCredito">0</span></div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Dcto. Cliente: <strong id="cliDcto">0%</strong> (Lista <span id="cliLista">1</span>)</div>
-          </div>
+      <div class="kpi-grid">
+        <!-- 1. Crédito / Condición -->
+        <div class="kpi-box">
+          <div class="kpi-title">Crédito / Condición</div>
+          <div class="kpi-value"><span id="cliCondicion">-</span> • $<span id="cliCredito">0</span></div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;">Dcto. Cliente: <strong id="cliDcto">0%</strong> (Lista <span id="cliLista">1</span>)</div>
+        </div>
 
-          <div class="kpi-box">
-            <div class="kpi-title">Estado de Cuenta</div>
-            <div style="margin-top: 4px;">
-              Vencido: <span id="cliVencido" class="status-badge-vencido">$0</span>
-            </div>
-            <div style="margin-top: 6px;">
-              Vigente: <span id="cliVigente" class="status-badge-vigente">$0</span>
-            </div>
-          </div>
-
-          <div class="kpi-box">
-            <div class="kpi-title">Ejecutivo Comercial</div>
-            <div class="kpi-value" id="ejeNombre">Novovet</div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">
-              ✉️ <span id="ejeCorreo">-</span><br>
-              📞 <span id="ejeTelefono">-</span>
-            </div>
+        <!-- 2. Estado de Cuenta -->
+        <div class="kpi-box">
+          <div class="kpi-title">Estado de Cuenta</div>
+          <div class="kpi-value">
+            Vencido: <span id="cliVencido" class="status-badge-vencido">$0</span><br>
+            <span style="display:inline-block; margin-top:3px;">Vigente: <span id="cliVigente" class="status-badge-vigente">$0</span></span>
           </div>
         </div>
-      </div>
 
-      <div class="cart-summary-box">
-        <div class="cart-label">
-          TOTAL PEDIDO + IVA
-          <span id="cartCountBadge" class="cart-badge">0</span>
+        <!-- 3. Ejecutivo Comercial -->
+        <div class="kpi-box">
+          <div class="kpi-title">Ejecutivo Comercial</div>
+          <div class="kpi-value" id="ejeNombre">Novovet</div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 3px; line-height: 1.2;">
+            ✉️ <span id="ejeCorreo">-</span><br>
+            📞 <span id="ejeTelefono">-</span>
+          </div>
         </div>
-        <div id="cartTotal" class="cart-total">$0</div>
-        <button class="cart-link-btn" onclick="abrirCarrito()">Ver Pedido 📋</button>
+
+        <!-- 4. Resumen Total / Carrito -->
+        <div class="cart-summary-box">
+          <div class="cart-label">
+            TOTAL PEDIDO + IVA
+            <span id="cartCountBadge" class="cart-badge">0</span>
+          </div>
+          <div id="cartTotal" class="cart-total">$0</div>
+          <button class="cart-link-btn" onclick="abrirCarrito()">Ver Pedido 📋</button>
+        </div>
       </div>
     </div>
 
