@@ -68,6 +68,7 @@
       display: grid;
       grid-template-columns: 1fr 220px;
       gap: 28px;
+      align-items: stretch;
     }
     
     .client-name { font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 4px; }
@@ -93,6 +94,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      height: 100%;
     }
     .cart-label { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
     .cart-badge { background-color: var(--danger); color: white; font-size: 11px; font-weight: 800; border-radius: 20px; padding: 2px 8px; display: inline-flex; justify-content: center; align-items: center; margin-left: 4px; }
@@ -218,13 +220,40 @@
     .btn-submit:hover { background: var(--primary-dark); }
     .btn-close { width: 100%; background: transparent; color: var(--text-muted); border: none; padding: 10px; margin-top: 4px; font-size: 13px; cursor: pointer; text-align: center; font-weight: 600; }
 
-    /* Responsividad Tablet */
-    @media (max-width: 900px) {
+    /* Ajuste para Tablets y Pantallas Medianas (Mantiene vista horizontal) */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .client-card { 
+        grid-template-columns: 1fr 210px !important; 
+        gap: 20px !important; 
+      }
+      .kpi-grid { 
+        grid-template-columns: repeat(3, 1fr) !important; 
+        gap: 10px !important; 
+      }
+      .cart-summary-box { 
+        flex-direction: column !important; 
+        justify-content: center !important; 
+        padding: 16px !important; 
+      }
+      .cart-total { 
+        font-size: 28px !important; 
+        margin: 4px 0 !important; 
+      }
+      .cart-link-btn { 
+        width: 100% !important; 
+        padding: 10px !important; 
+      }
+    }
+
+    /* Solo pantallas pequeñas (smartphones en vertical) */
+    @media (max-width: 640px) {
       .client-card { grid-template-columns: 1fr; }
       .kpi-grid { grid-template-columns: 1fr; }
       .cart-summary-box { flex-direction: row; justify-content: space-between; padding: 14px; }
-      .cart-total { font-size: 24px; margin: 0; }
+      .cart-total { font-size: 22px; margin: 0; }
       .cart-link-btn { width: auto; padding: 8px 16px; }
+      .filter-bar { flex-direction: column; }
+      .select-lab { width: 100%; }
     }
   </style>
 </head>
@@ -592,20 +621,38 @@
       actualizarTotal();
     }
 
-    function filtrarProductos() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      const lab = document.getElementById('labSelect').value;
-      const soloOfertas = document.getElementById('onlyOffers').checked;
+   function filtrarProductos() {
+  const searchInput = document.getElementById('searchInput');
+  const labSelect = document.getElementById('labSelect');
+  const onlyOffersInput = document.getElementById('onlyOffers');
 
-      const filtrados = todosLosProductos.filter(p => {
-        const matchSearch = p.nombre.toLowerCase().includes(search) || p.codigo.toLowerCase().includes(search);
-        const matchLab = lab === '' || p.proveedor === lab;
-        const matchOferta = !soloOfertas || p.tienePromo;
-        return matchSearch && matchLab && matchOferta;
-      });
+  // Asegurar lectura limpia de valores
+  const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  const lab = labSelect ? labSelect.value.trim() : '';
+  const soloOfertas = onlyOffersInput ? onlyOffersInput.checked : false;
 
-      renderProductos(filtrados);
-    }
+  const filtrados = todosLosProductos.filter(p => {
+    // 1. Manejo seguro de string por si viene null o undefined desde la BD
+    const nombre = String(p.nombre || '').toLowerCase();
+    const codigo = String(p.codigo || '').toLowerCase();
+    const proveedor = String(p.proveedor || '').trim();
+
+    // 2. Coincidencia de Búsqueda (Nombre o Código)
+    const matchSearch = search === '' || nombre.includes(search) || codigo.includes(search);
+
+    // 3. Coincidencia de Laboratorio / Proveedor
+    // (Tolera si el option por defecto es "", "TODOS", "todos" o "ALL")
+    const esOpcionTodos = lab === '' || lab.toUpperCase() === 'TODOS' || lab.toUpperCase() === 'ALL';
+    const matchLab = esOpcionTodos || proveedor.toLowerCase() === lab.toLowerCase();
+
+    // 4. Coincidencia de Ofertas
+    const matchOferta = !soloOfertas || Boolean(p.tienePromo);
+
+    return matchSearch && matchLab && matchOferta;
+  });
+
+  renderProductos(filtrados);
+}
 
 async function enviarPedidoFinal() {
   const items = Object.values(carrito);
