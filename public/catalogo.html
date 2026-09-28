@@ -57,16 +57,16 @@
     .btn-cambiar { background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; }
     .btn-cambiar:hover { background: rgba(255, 255, 255, 0.15); border-color: white; }
 
-    /* Card Cliente Dashboard (Grid principal) */
+    /* Card Cliente Dashboard */
     .client-card { 
       background: var(--surface); 
       border-radius: 16px; 
-      padding: 24px; 
+      padding: 20px 24px; 
       border: 1px solid var(--border-color);
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03); 
       margin-bottom: 24px; 
       display: grid;
-      grid-template-columns: 1fr 220px; /* Asegura lado a lado */
+      grid-template-columns: 1fr 190px; /* Reducimos ligeramente el ancho de la caja derecha */
       gap: 20px;
       align-items: stretch;
     }
@@ -74,7 +74,7 @@
     .client-name { font-size: 20px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 4px; }
     .client-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 16px; }
 
-    /* KPI Grid (3 columnas horizontales siempre) */
+    /* KPI Grid */
     .kpi-grid { 
       display: grid; 
       grid-template-columns: repeat(3, 1fr); 
@@ -90,12 +90,12 @@
     .status-badge-vencido { color: var(--danger); font-weight: 700; background: var(--danger-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
     .status-badge-vigente { color: var(--success); font-weight: 700; background: var(--success-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
 
-    /* Resumen Pedido Card */
+    /* Resumen Pedido Card (Ajustado) */
     .cart-summary-box { 
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
       border: 1.5px solid var(--border-color); 
       border-radius: 14px; 
-      padding: 18px 14px; 
+      padding: 14px 10px; 
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -103,21 +103,26 @@
       align-items: center;
       height: 100%;
     }
-    .cart-label { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
-    .cart-badge { background-color: var(--danger); color: white; font-size: 11px; font-weight: 800; border-radius: 20px; padding: 2px 8px; display: inline-flex; justify-content: center; align-items: center; margin-left: 4px; }
-    .cart-total { font-size: 28px; font-weight: 900; color: var(--primary); margin: 6px 0; letter-spacing: -1px; }
+    .cart-label { font-size: 10px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+    .cart-badge { background-color: var(--danger); color: white; font-size: 10px; font-weight: 800; border-radius: 20px; padding: 1px 6px; display: inline-flex; justify-content: center; align-items: center; margin-left: 2px; }
+    
+    /* Monto con fuente ajustada */
+    .cart-total { font-size: 22px; font-weight: 900; color: var(--primary); margin: 4px 0 8px 0; letter-spacing: -0.5px; }
+    
+    /* Botón achicado y compacto */
     .cart-link-btn { 
-      width: 100%;
+      width: auto;
+      min-width: 120px;
       background: var(--primary); 
       color: white; 
-      font-size: 13px; 
+      font-size: 12px; 
       font-weight: 700; 
-      padding: 10px; 
-      border-radius: 8px; 
+      padding: 6px 14px; 
+      border-radius: 6px; 
       border: none;
       cursor: pointer; 
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
+      box-shadow: 0 2px 6px rgba(30, 64, 175, 0.2);
     }
     .cart-link-btn:hover { background: var(--primary-dark); }
 
@@ -177,23 +182,6 @@
     .product-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
     .product-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; }
 
-    /* Badges */
-    .badge-percent { background: var(--danger-bg); color: var(--danger); font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 20px; border: 1px solid #fecaca; }
-    .badge-promo-orange { background: #fff7ed; color: var(--accent-orange); font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 20px; border: 1px solid #ffedd5; text-transform: uppercase; }
-
-    /* Precios & Acciones */
-    .product-action-zone { display: flex; align-items: center; gap: 20px; }
-    .price-box { text-align: right; min-width: 90px; }
-    .old-price { font-size: 12px; color: #94a3b8; text-decoration: line-through; font-weight: 500; }
-    .current-price { font-size: 18px; font-weight: 800; color: var(--text-main); }
-    .promo-unit-price { font-size: 12px; font-weight: 700; color: var(--primary); margin-top: 1px; }
-
-    /* Stepper */
-    .counter-box { display: flex; align-items: center; background: #f1f5f9; border-radius: 8px; padding: 2px; border: 1px solid var(--border-color); }
-    .counter-input { width: 44px; height: 32px; border: none; background: transparent; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); outline: none; }
-    .btn-add { width: 32px; height: 32px; background-color: var(--primary); color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background 0.2s; }
-    .btn-add:hover { background-color: var(--primary-dark); }
-
     /* Modal Detalle Pedido Presencial */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; }
     .modal-card { background: white; border-radius: 20px; width: 680px; max-width: 94%; padding: 28px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); max-height: 90vh; overflow-y: auto; }
@@ -223,9 +211,9 @@
     @media (max-width: 480px) {
       .client-card { grid-template-columns: 1fr; }
       .kpi-grid { grid-template-columns: 1fr; }
-      .cart-summary-box { flex-direction: row; justify-content: space-between; padding: 14px; }
-      .cart-total { font-size: 22px; margin: 0; }
-      .cart-link-btn { width: auto; padding: 8px 16px; }
+      .cart-summary-box { flex-direction: row; justify-content: space-between; padding: 12px; }
+      .cart-total { font-size: 18px; margin: 0; }
+      .cart-link-btn { width: auto; padding: 6px 12px; }
       .filter-bar { flex-direction: column; }
       .select-lab { width: 100%; }
     }
