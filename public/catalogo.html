@@ -94,7 +94,7 @@
     .status-badge-vencido { color: var(--danger); font-weight: 700; background: var(--danger-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
     .status-badge-vigente { color: var(--success); font-weight: 700; background: var(--success-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
 
-    /* Resumen Pedido Card dentro del grid horizontal */
+    /* Resumen Pedido Card */
     .cart-summary-box { 
       background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
       border-radius: 12px; 
@@ -123,11 +123,19 @@
     }
     .cart-link-btn:hover { background: #f1f5f9; }
 
-    /* Filtros y Búsqueda */
+    /* --- FILTROS Y BÚSQUEDA CON BOTÓN 'X' --- */
     .filter-bar { display: flex; gap: 14px; margin-bottom: 16px; align-items: center; }
+    
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    
     .search-input { 
-      flex: 1; 
-      padding: 12px 18px; 
+      width: 100%; 
+      padding: 12px 40px 12px 18px; /* Espacio a la derecha para el botón X */
       border: 1px solid var(--border-color); 
       border-radius: 12px; 
       font-size: 14px; 
@@ -137,6 +145,30 @@
       transition: all 0.2s; 
     }
     .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1); }
+    
+    /* Botón X de Limpieza */
+    .btn-clear-search {
+      position: absolute;
+      right: 12px;
+      background: #e2e8f0;
+      color: #64748b;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: none; /* Se activa mediante JS cuando hay texto */
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-clear-search:hover {
+      background: var(--danger);
+      color: white;
+    }
+
     .select-lab { 
       width: 260px; 
       padding: 12px 18px; 
@@ -187,15 +219,69 @@
     .gift-banner { display: inline-flex; align-items: center; gap: 6px; background-color: var(--primary-light); color: var(--primary); border: 1px solid #bfdbfe; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; width: fit-content; margin-top: 4px; }
 
     /* Precios & Acciones en Catálogo */
-    .product-action-zone { display: flex; align-items: center; gap: 20px; }
+    .product-action-zone { display: flex; align-items: center; gap: 16px; }
     .price-box { text-align: right; min-width: 90px; }
     .old-price { font-size: 12px; color: #94a3b8; text-decoration: line-through; font-weight: 500; }
     .current-price { font-size: 18px; font-weight: 800; color: var(--text-main); }
     .promo-unit-price { font-size: 12px; font-weight: 700; color: var(--primary); margin-top: 1px; }
 
-    .counter-box { display: flex; align-items: center; background: #f1f5f9; border-radius: 8px; padding: 2px; border: 1px solid var(--border-color); }
-    .counter-input { width: 44px; height: 32px; border: none; background: transparent; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); outline: none; }
-    .btn-add { width: 32px; height: 32px; background-color: var(--primary); color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background 0.2s; }
+    /* --- CORRECCIÓN DEFINITIVA CONTROL DE CANTIDAD (EN FILA Y ESPACIADO) --- */
+    .counter-box { 
+      display: inline-flex; 
+      align-items: center; 
+      background: #f8fafc; 
+      border-radius: 8px; 
+      padding: 3px; 
+      border: 1px solid var(--border-color); 
+      gap: 6px; 
+      flex-shrink: 0;
+    }
+    
+    .counter-input { 
+      width: 44px; 
+      height: 34px; 
+      border: 1px solid #cbd5e1; 
+      background: #ffffff; 
+      border-radius: 6px;
+      text-align: center; 
+      font-size: 15px; 
+      font-weight: 700; 
+      color: var(--text-main); 
+      outline: none; 
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .counter-input::placeholder {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    /* Quitar flechas nativas del navegador */
+    .counter-input::-webkit-outer-spin-button,
+    .counter-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .counter-input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .btn-add { 
+      width: 34px; 
+      height: 34px; 
+      background-color: var(--primary); 
+      color: white; 
+      border: none; 
+      border-radius: 6px; 
+      font-size: 18px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      transition: background 0.2s; 
+      flex-shrink: 0;
+    }
     .btn-add:hover { background-color: var(--primary-dark); }
 
     /* Modal Detalle Pedido Presencial */
@@ -212,7 +298,7 @@
     .order-table th.text-right, .order-table td.text-right { text-align: right; }
     .order-table th.text-center, .order-table td.text-center { text-align: center; }
 
-    /* --- SOLUCIÓN: ALINEACIÓN HORIZONTAL DEL CONTADOR EN TABLA CARRITO --- */
+    /* Controles de Cantidad en la Tabla del Carrito */
     .qty-control-cell {
       display: inline-flex;
       align-items: center;
@@ -226,7 +312,7 @@
     .qty-number {
       font-size: 14px;
       font-weight: 800;
-      min-width: 20px;
+      min-width: 24px;
       text-align: center;
       color: var(--text-main);
     }
@@ -333,8 +419,13 @@
       </div>
     </div>
 
+    <!-- Filtro de Búsqueda con Botón Limpiar X -->
     <div class="filter-bar">
-      <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o código..." oninput="filtrarProductos()">
+      <div class="search-wrapper">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar por producto, marca o código..." oninput="alCambiarBusqueda()">
+        <button type="button" id="btnClearSearch" class="btn-clear-search" onclick="limpiarBusqueda()">✕</button>
+      </div>
+      
       <select id="labSelect" class="select-lab" onchange="filtrarProductos()">
         <option value="">Todos los Laboratorios</option>
       </select>
@@ -395,10 +486,7 @@
     </div>
   </div>
 
-</body>
-</html>
-
- <script>
+<script>
     let todosLosProductos = [];
     let carrito = {};
     let clienteData = {};
@@ -458,7 +546,7 @@
       });
     }
 
-    // 1. RENDER PRODUCTOS: Se remueve el onchange del input para evitar cargas prematuras
+    // 1. RENDER PRODUCTOS: Modificado para inicializar los inputs limpios sin value="0"
     function renderProductos(lista) {
       const container = document.getElementById('productList');
       if (!container) return;
@@ -516,7 +604,16 @@
             </div>
 
             <div class="counter-box">
-              <input type="number" class="counter-input" value="0" min="0" id="qty-${p.codigo}">
+              <input 
+                type="number" 
+                class="counter-input" 
+                placeholder="0" 
+                value="" 
+                min="0" 
+                id="qty-${p.codigo}"
+                onfocus="if(this.value === '0' || this.value === 0) this.value = '';"
+                oninput="if(this.value.length > 1 && this.value.startsWith('0')) this.value = parseInt(this.value, 10);"
+              >
               <button class="btn-add" onclick="agregarUnidad('${p.codigo}')">+</button>
             </div>
           </div>
@@ -549,12 +646,16 @@
       renderProductos(filtrados);
     }
 
-    // 2. AGREGAR UNIDAD: Asigna la cantidad tipeada al hacer clic en +, limpia el input y suma correctamente al carrito
+    // 2. AGREGAR UNIDAD: Toma 1 unidad por defecto si el campo está vacío, y limpia el input al finalizar
     function agregarUnidad(codigo) {
       const inputEl = document.getElementById(`qty-${codigo}`);
-      const cantidadElegida = parseInt(inputEl ? inputEl.value : 0) || 0;
+      let cantidadElegida = 1;
 
-      if (cantidadElegida <= 0) return;
+      if (inputEl && inputEl.value !== '') {
+        cantidadElegida = parseInt(inputEl.value, 10);
+      }
+
+      if (isNaN(cantidadElegida) || cantidadElegida <= 0) return;
 
       const p = todosLosProductos.find(item => item.codigo === codigo);
       if (!p) return;
@@ -566,9 +667,9 @@
       // Suma la cantidad tipeada al carrito
       carrito[codigo].cantidad += cantidadElegida;
 
-      // Resetea la casilla a 0
+      // Resetea la casilla a vacío (Limpio)
       if (inputEl) {
-        inputEl.value = 0;
+        inputEl.value = '';
       }
 
       actualizarTotalesCarrito();
@@ -697,114 +798,158 @@
     }
 
     async function enviarPedidoFinal() {
-  const itemsList = Object.values(carrito);
-  if (itemsList.length === 0) {
-    alert("El carrito está vacío. Agrega productos antes de enviar.");
-    return;
-  }
+      const itemsList = Object.values(carrito);
+      if (itemsList.length === 0) {
+        alert("El carrito está vacío. Agrega productos antes de enviar.");
+        return;
+      }
 
-  const comentario = document.getElementById('comentarioPedido')?.value || '';
-  const productosPayload = [];
+      const comentario = document.getElementById('comentarioPedido')?.value || '';
+      const productosPayload = [];
 
-  itemsList.forEach(item => {
-    const p = item.producto;
-    const precioUnitario = Number(p.precioFinal || p.precioBase || 0);
+      itemsList.forEach(item => {
+        const p = item.producto;
+        const precioUnitario = Number(p.precioFinal || p.precioBase || 0);
 
-    // Texto de promoción limpio para la notificación/correo
-    let textoPromo = 'Sin promo';
-    if (p.tipoPromo === 'PORCENTAJE' || p.descuentoPorcentaje > 0) {
-      textoPromo = `Descuento ${p.descuentoPorcentaje}%`;
-    } else if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
-      const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
-      const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
-      textoPromo = `Promo ${f1}+${f2}`;
-    }
-
-    // 1. Fila de unidades pagadas
-    productosPayload.push({
-      codigo: p.codigo,
-      nombre: p.nombre,
-      cantidad: Number(item.cantidad),
-      precio: Math.round(precioUnitario),
-      promo: textoPromo
-    });
-
-    // 2. Fila de unidades gratis (Agrega 'X' al código para carga ERP)
-    if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
-      const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
-      const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
-
-      if (f1 > 0 && f2 > 0 && item.cantidad >= f1) {
-        const tramos = Math.floor(item.cantidad / f1);
-        const gratisTotal = tramos * f2;
-
-        if (gratisTotal > 0) {
-          productosPayload.push({
-            codigo: `X${p.codigo}`, // 👈 'X' inicial para ERP
-            nombre: `${p.nombre} (REGALO)`,
-            cantidad: gratisTotal,
-            precio: 1, // Precio $1 nominal para el ERP
-            promo: `🎁 Promo ${f1}+${f2} Gratis`
-          });
+        let textoPromo = 'Sin promo';
+        if (p.tipoPromo === 'PORCENTAJE' || p.descuentoPorcentaje > 0) {
+          textoPromo = `Descuento ${p.descuentoPorcentaje}%`;
+        } else if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+          const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
+          const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
+          textoPromo = `Promo ${f1}+${f2}`;
         }
+
+        // 1. Fila de unidades pagadas
+        productosPayload.push({
+          codigo: p.codigo,
+          nombre: p.nombre,
+          cantidad: Number(item.cantidad),
+          precio: Math.round(precioUnitario),
+          promo: textoPromo
+        });
+
+        // 2. Fila de unidades gratis (Agrega 'X' al código para carga ERP)
+        if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+          const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
+          const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
+
+          if (f1 > 0 && f2 > 0 && item.cantidad >= f1) {
+            const tramos = Math.floor(item.cantidad / f1);
+            const gratisTotal = tramos * f2;
+
+            if (gratisTotal > 0) {
+              productosPayload.push({
+                codigo: `X${p.codigo}`,
+                nombre: `${p.nombre} (REGALO)`,
+                cantidad: gratisTotal,
+                precio: 1,
+                promo: `🎁 Promo ${f1}+${f2} Gratis`
+              });
+            }
+          }
+        }
+      });
+
+      let totalNetoGlobal = 0;
+      itemsList.forEach(i => {
+        totalNetoGlobal += Number(i.producto.precioFinal || i.producto.precioBase || 0) * i.cantidad;
+      });
+
+      const dctoPct = Number(clienteData.descuentoCliente || clienteData.descuento || 0);
+      const montoDcto = totalNetoGlobal * (dctoPct / 100);
+      const netoConDcto = totalNetoGlobal - montoDcto;
+      const iva = netoConDcto * 0.19;
+      const totalFinal = netoConDcto + iva;
+
+      const payload = {
+        cliente: {
+          rut: clienteData.rut,
+          nombre: clienteData.nombre,
+          direccion: clienteData.direccion,
+          correo: clienteData.vendedorCorreo || 'fvaldebenito@novovet.cl',
+          vendedor: clienteData.vendedor || 'Novovet',
+          vendedorCorreo: clienteData.vendedorCorreo || ''
+        },
+        productos: productosPayload,
+        resumen: {
+          subtotal: Math.round(totalNetoGlobal),
+          descuento: Math.round(montoDcto),
+          neto: Math.round(netoConDcto),
+          iva: Math.round(iva),
+          total: Math.round(totalFinal)
+        },
+        comentario
+      };
+
+      try {
+        const res = await fetch('/api/pedidos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const resp = await res.json();
+
+        if (res.ok && resp.exito) {
+          alert(`✅ Pedido #${resp.codigoPedido} registrado e ingresado con éxito.`);
+          carrito = {};
+          actualizarTotalesCarrito();
+          cerrarCarrito();
+          window.location.reload();
+        } else {
+          alert('Error al registrar pedido: ' + (resp.mensaje || ''));
+        }
+      } catch (err) {
+        console.error('Error al conectar con el servidor:', err);
+        alert('Error conectando con el servidor.');
       }
     }
-  });
 
-  let totalNetoGlobal = 0;
-  itemsList.forEach(i => {
-    totalNetoGlobal += Number(i.producto.precioFinal || i.producto.precioBase || 0) * i.cantidad;
-  });
+    function alCambiarBusqueda() {
+      const input = document.getElementById('searchInput');
+      const btnClear = document.getElementById('btnClearSearch');
+      
+      if (input.value.trim() !== '') {
+        btnClear.style.display = 'flex';
+      } else {
+        btnClear.style.display = 'none';
+      }
+      
+      if (typeof filtrarProductos === 'function') {
+        filtrarProductos();
+      }
+    }
 
-  const dctoPct = Number(clienteData.descuentoCliente || clienteData.descuento || 0);
-  const montoDcto = totalNetoGlobal * (dctoPct / 100);
-  const netoConDcto = totalNetoGlobal - montoDcto;
-  const iva = netoConDcto * 0.19;
-  const totalFinal = netoConDcto + iva;
+    function limpiarBusqueda() {
+      const input = document.getElementById('searchInput');
+      const btnClear = document.getElementById('btnClearSearch');
+      
+      input.value = '';
+      btnClear.style.display = 'none';
+      input.focus();
+      
+      if (typeof filtrarProductos === 'function') {
+        filtrarProductos();
+      }
+    }
 
-  const payload = {
-    cliente: {
-      rut: clienteData.rut,
-      nombre: clienteData.nombre,
-      direccion: clienteData.direccion,
-      correo: clienteData.vendedorCorreo || 'fvaldebenito@novovet.cl',
-      vendedor: clienteData.vendedor || 'Novovet',
-      vendedorCorreo: clienteData.vendedorCorreo || ''
-    },
-    productos: productosPayload,
-    resumen: {
-      subtotal: Math.round(totalNetoGlobal),
-      descuento: Math.round(montoDcto),
-      neto: Math.round(netoConDcto),
-      iva: Math.round(iva),
-      total: Math.round(totalFinal)
-    },
-    comentario
-  };
-
-  try {
-    const res = await fetch('/api/pedidos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+    // REGISTRADORES GLOBALES DE INTERACCIÓN (Evita remanentes de 0 en la tablet o escritorio)
+    document.addEventListener('focusin', function(e) {
+      if (e.target && e.target.classList.contains('counter-input')) {
+        if (e.target.value === '0' || e.target.value === 0) {
+          e.target.value = '';
+        }
+      }
     });
 
-    const resp = await res.json();
-
-    if (res.ok && resp.exito) {
-      alert(`✅ Pedido #${resp.codigoPedido} registrado e ingresado con éxito.`);
-      carrito = {};
-      actualizarTotalesCarrito();
-      cerrarCarrito();
-      window.location.reload();
-    } else {
-      alert('Error al registrar pedido: ' + (resp.mensaje || ''));
-    }
-  } catch (err) {
-    console.error('Error al conectar con el servidor:', err);
-    alert('Error conectando con el servidor.');
-  }
-}
+    document.addEventListener('input', function(e) {
+      if (e.target && e.target.classList.contains('counter-input')) {
+        if (e.target.value.length > 1 && e.target.value.startsWith('0')) {
+          e.target.value = parseInt(e.target.value, 10);
+        }
+      }
+    });
 
     document.addEventListener('DOMContentLoaded', init);
 </script>
