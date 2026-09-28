@@ -337,12 +337,48 @@
     
     .warning-banner { background-color: #fffbe3; color: #b45309; border: 1px solid #fef3c7; border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 600; text-align: center; margin-bottom: 20px; }
 
-    /* Tabla de Pedido (Modal) */
-    .order-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+/* Tabla de Pedido (Modal) */
+    .order-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      margin-bottom: 20px; 
+      font-size: 13px; 
+      table-layout: fixed; /* 👈 Evita que el texto largo aplaste otras columnas */
+    }
     .order-table th { background: #f8fafc; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border-color); }
     .order-table td { padding: 12px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
     .order-table th.text-right, .order-table td.text-right { text-align: right; }
     .order-table th.text-center, .order-table td.text-center { text-align: center; }
+
+    /* Asignación rígida de anchos por columna */
+    .order-table th:nth-child(1), .order-table td:nth-child(1) { width: auto; word-break: break-word; }
+    .order-table th:nth-child(2), .order-table td:nth-child(2) { width: 130px !important; } /* 👈 Reserva espacio para los botones */
+    .order-table th:nth-child(3), .order-table td:nth-child(3) { width: 95px !important; }
+    .order-table th:nth-child(4), .order-table td:nth-child(4) { width: 40px !important; }
+
+    /* Contenedor horizontal forzado para la cantidad */
+    .modal-qty-container {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 4px !important;
+      background-color: #f8fafc;
+      padding: 3px 6px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      width: 110px !important;
+      margin: 0 auto;
+      box-sizing: border-box !important;
+    }
+
+    .modal-qty-val {
+      font-size: 14px;
+      font-weight: 800;
+      flex: 1;
+      text-align: center;
+      color: var(--text-main);
+    }
 
     /* Controles de Cantidad en la Tabla del Carrito */
     .qty-control-cell {
