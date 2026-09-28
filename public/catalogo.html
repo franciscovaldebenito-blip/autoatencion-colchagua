@@ -26,6 +26,52 @@
       --accent-orange: #f97316;
     }
 
+/* Contenedor horizontal en la celda del modal */
+.modal-qty-container {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  background-color: #f8fafc;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  white-space: nowrap !important;
+}
+
+.modal-qty-val {
+  font-size: 14px;
+  font-weight: 800;
+  min-width: 24px;
+  text-align: center;
+  color: var(--text-main);
+  display: inline-block;
+}
+
+.btn-mini { 
+  background: #ffffff !important; 
+  border: 1px solid var(--border-color) !important; 
+  width: 28px !important; 
+  height: 28px !important; 
+  border-radius: 6px !important; 
+  font-weight: 800 !important; 
+  font-size: 14px !important;
+  cursor: pointer; 
+  color: var(--text-main) !important; 
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.btn-mini:hover {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+}
+
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
     body { background-color: var(--bg-body); color: var(--text-main); -webkit-font-smoothing: antialiased; }
 
@@ -791,6 +837,7 @@
 
       modal.style.display = 'flex';
     }
+
 
     function cerrarCarrito() {
       const modal = document.getElementById('modalCart');
