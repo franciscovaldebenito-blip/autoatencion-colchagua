@@ -61,66 +61,54 @@
     .client-card { 
       background: var(--surface); 
       border-radius: 16px; 
-      padding: 20px 24px; 
+      padding: 28px; 
       border: 1px solid var(--border-color);
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03); 
       margin-bottom: 24px; 
       display: grid;
-      grid-template-columns: 1fr 150px; /* Reducido a 150px fijosa para dar más espacio al cliente */
-      gap: 16px;
-      align-items: center;
+      grid-template-columns: 1fr 220px;
+      gap: 28px;
     }
     
-    .client-name { font-size: 20px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 4px; }
-    .client-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 16px; }
+    .client-name { font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 4px; }
+    .client-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
 
-    /* KPI Grid - Ahora con suficiente ancho para holgura */
-    .kpi-grid { 
-      display: grid; 
-      grid-template-columns: repeat(3, 1fr); 
-      gap: 12px; 
-      border-top: 1px solid var(--border-color); 
-      padding-top: 16px; 
-    }
+    .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; border-top: 1px solid var(--border-color); padding-top: 18px; }
     
-    .kpi-box { background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #f1f5f9; }
+    .kpi-box { background: #f8fafc; padding: 12px 14px; border-radius: 12px; border: 1px solid #f1f5f9; }
     .kpi-title { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .kpi-value { font-size: 12px; font-weight: 700; color: var(--text-main); }
+    .kpi-value { font-size: 13px; font-weight: 700; color: var(--text-main); }
     
-    .status-badge-vencido { color: var(--danger); font-weight: 700; background: var(--danger-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
-    .status-badge-vigente { color: var(--success); font-weight: 700; background: var(--success-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
+    .status-badge-vencido { color: var(--danger); font-weight: 700; background: var(--danger-bg); padding: 2px 8px; border-radius: 6px; font-size: 12px; }
+    .status-badge-vigente { color: var(--success); font-weight: 700; background: var(--success-bg); padding: 2px 8px; border-radius: 6px; font-size: 12px; }
 
-    /* Resumen Pedido Card COMPACTO */
+    /* Resumen Pedido Card */
     .cart-summary-box { 
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
       border: 1.5px solid var(--border-color); 
       border-radius: 14px; 
-      padding: 12px 8px; 
+      padding: 18px; 
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      align-self: center; /* No se estira hacia arriba ni abajo */
     }
-    .cart-label { font-size: 9px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.3px; text-transform: uppercase; line-height: 1.2; }
-    .cart-badge { background-color: var(--danger); color: white; font-size: 10px; font-weight: 800; border-radius: 20px; padding: 1px 6px; display: inline-flex; justify-content: center; align-items: center; margin-left: 2px; }
-    
-    .cart-total { font-size: 20px; font-weight: 900; color: var(--primary); margin: 4px 0 8px 0; letter-spacing: -0.5px; }
-    
+    .cart-label { font-size: 11px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+    .cart-badge { background-color: var(--danger); color: white; font-size: 11px; font-weight: 800; border-radius: 20px; padding: 2px 8px; display: inline-flex; justify-content: center; align-items: center; margin-left: 4px; }
+    .cart-total { font-size: 32px; font-weight: 900; color: var(--primary); margin: 4px 0; letter-spacing: -1px; }
     .cart-link-btn { 
       width: 100%;
       background: var(--primary); 
       color: white; 
-      font-size: 11px; 
+      font-size: 13px; 
       font-weight: 700; 
-      padding: 6px 8px; 
-      border-radius: 6px; 
+      padding: 10px; 
+      border-radius: 8px; 
       border: none;
       cursor: pointer; 
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(30, 64, 175, 0.2);
-      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
     }
     .cart-link-btn:hover { background: var(--primary-dark); }
 
@@ -180,6 +168,26 @@
     .product-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
     .product-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; }
 
+    /* Badges */
+    .badge-percent { background: var(--danger-bg); color: var(--danger); font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 20px; border: 1px solid #fecaca; }
+    .badge-promo-orange { background: #fff7ed; color: var(--accent-orange); font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 20px; border: 1px solid #ffedd5; text-transform: uppercase; }
+
+    /* Banner Regalo */
+    .gift-banner { display: inline-flex; align-items: center; gap: 6px; background-color: var(--primary-light); color: var(--primary); border: 1px solid #bfdbfe; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; width: fit-content; margin-top: 4px; }
+
+    /* Precios & Acciones */
+    .product-action-zone { display: flex; align-items: center; gap: 20px; }
+    .price-box { text-align: right; min-width: 90px; }
+    .old-price { font-size: 12px; color: #94a3b8; text-decoration: line-through; font-weight: 500; }
+    .current-price { font-size: 18px; font-weight: 800; color: var(--text-main); }
+    .promo-unit-price { font-size: 12px; font-weight: 700; color: var(--primary); margin-top: 1px; }
+
+    /* Stepper */
+    .counter-box { display: flex; align-items: center; background: #f1f5f9; border-radius: 8px; padding: 2px; border: 1px solid var(--border-color); }
+    .counter-input { width: 44px; height: 32px; border: none; background: transparent; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); outline: none; }
+    .btn-add { width: 32px; height: 32px; background-color: var(--primary); color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background 0.2s; }
+    .btn-add:hover { background-color: var(--primary-dark); }
+
     /* Modal Detalle Pedido Presencial */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; }
     .modal-card { background: white; border-radius: 20px; width: 680px; max-width: 94%; padding: 28px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); max-height: 90vh; overflow-y: auto; }
@@ -194,6 +202,11 @@
     .order-table th.text-right, .order-table td.text-right { text-align: right; }
     .order-table th.text-center, .order-table td.text-center { text-align: center; }
 
+    .unit-text { color: var(--primary); font-weight: 700; font-size: 12px; }
+    .item-total-price { font-size: 15px; font-weight: 800; color: var(--text-main); }
+    .btn-mini { background: #f1f5f9; border: none; width: 26px; height: 26px; border-radius: 6px; font-weight: bold; cursor: pointer; color: var(--text-main); }
+    .btn-trash { background: var(--danger-bg); color: var(--danger); border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+
     .summary-box { background: #f8fafc; border-radius: 14px; padding: 18px; margin: 18px 0; font-size: 13px; border: 1px solid var(--border-color); }
     .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; color: var(--text-muted); }
     .summary-row.total { font-size: 20px; font-weight: 800; color: var(--primary); border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; }
@@ -205,15 +218,12 @@
     .btn-submit:hover { background: var(--primary-dark); }
     .btn-close { width: 100%; background: transparent; color: var(--text-muted); border: none; padding: 10px; margin-top: 4px; font-size: 13px; cursor: pointer; text-align: center; font-weight: 600; }
 
-    /* Adaptación móviles muy pequeños */
-    @media (max-width: 480px) {
+    @media (max-width: 900px) {
       .client-card { grid-template-columns: 1fr; }
       .kpi-grid { grid-template-columns: 1fr; }
-      .cart-summary-box { flex-direction: row; justify-content: space-between; padding: 12px; }
-      .cart-total { font-size: 18px; margin: 0; }
-      .cart-link-btn { width: auto; padding: 6px 12px; }
-      .filter-bar { flex-direction: column; }
-      .select-lab { width: 100%; }
+      .cart-summary-box { flex-direction: row; justify-content: space-between; padding: 14px; }
+      .cart-total { font-size: 24px; margin: 0; }
+      .cart-link-btn { width: auto; padding: 8px 16px; }
     }
   </style>
 </head>
@@ -302,12 +312,11 @@
         ⚠️ Revisa el detalle con el cliente antes de enviar.
       </div>
 
-      <!-- Tabla de productos -->
       <table class="order-table">
         <thead>
           <tr>
             <th>Producto</th>
-            <th class="text-center">Dcto / Promo</th>
+            <th class="text-center">Cantidad</th>
             <th class="text-right">Monto</th>
             <th class="text-center" style="width: 40px;"></th>
           </tr>
@@ -338,68 +347,76 @@
     </div>
   </div>
 
-  <script>
-    const rut = localStorage.getItem('clienteRut');
-    if (!rut) window.location.href = '/';
-
+ <script>
     let todosLosProductos = [];
-    let clienteData = null;
     let carrito = {};
+    let clienteData = {};
+
+    function setTexto(id, valor) {
+      const el = document.getElementById(id);
+      if (el) el.innerText = (valor !== undefined && valor !== null && valor !== '') ? valor : '-';
+    }
 
     async function init() {
       try {
+        const rut = localStorage.getItem('clienteRut') || '13909907-9';
         const res = await fetch(`/api/catalogo/${rut}`);
         const data = await res.json();
 
-        if (!data.exito) return alert('Error al cargar datos');
+        if (data.cliente) {
+          clienteData = data.cliente;
+          
+          setTexto('cliNombre', clienteData.nombre || 'Cliente General');
+          setTexto('cliSub', `RUT: ${clienteData.rut || ''} • 📍 ${clienteData.direccion || ''}`);
+          setTexto('cliCondicion', clienteData.condicionPago || clienteData.condicion || 'contado');
+          setTexto('cliCredito', Number(clienteData.lineaCredito || clienteData.credito || 0).toLocaleString('es-CL'));
+          setTexto('cliDcto', `${clienteData.descuentoCliente || clienteData.descuento || 0}%`);
+          setTexto('cliLista', clienteData.listaAplicada || '1');
+          setTexto('cliVencido', `$${Number(clienteData.montoVencido || 0).toLocaleString('es-CL')}`);
+          setTexto('cliVigente', `$${Number(clienteData.montoVigente || 0).toLocaleString('es-CL')}`);
 
-        clienteData = data.cliente;
-        document.getElementById('cliNombre').innerText = clienteData.nombre;
-        document.getElementById('cliSub').innerText = `RUT: ${clienteData.rut}  •  📍 ${clienteData.direccion || ''}`;
-        document.getElementById('cliCondicion').innerText = clienteData.condicionPago || 'Contado';
-        document.getElementById('cliCredito').innerText = Number(clienteData.lineaCredito || 0).toLocaleString('es-CL');
-        document.getElementById('cliDcto').innerText = `${clienteData.descuentoCliente || 0}%`;
-        document.getElementById('cliLista').innerText = clienteData.listaAplicada;
-        
-        // Vencido y Vigente
-        document.getElementById('cliVencido').innerText = `$${Number(clienteData.montoVencido || 0).toLocaleString('es-CL')}`;
-        document.getElementById('cliVigente').innerText = `$${Number(clienteData.montoVigente || 0).toLocaleString('es-CL')}`;
+          setTexto('ejeNombre', clienteData.vendedor || 'Novovet');
+          setTexto('ejeCorreo', clienteData.vendedorCorreo || '-');
+          setTexto('ejeTelefono', clienteData.vendedorTelefono || '-');
 
-        // Ejecutivo Comercial
-        document.getElementById('ejeNombre').innerText = clienteData.vendedor || 'Novovet';
-        document.getElementById('ejeCorreo').innerText = clienteData.vendedorCorreo || '-';
-        document.getElementById('ejeTelefono').innerText = clienteData.vendedorTelefono || '-';
-        
-        document.getElementById('direccionTexto').innerText = `📍 ${clienteData.direccion || 'Dirección registrada'}`;
+          const dirTexto = document.getElementById('direccionTexto');
+          if (dirTexto) dirTexto.innerText = `📍 ${clienteData.direccion || 'Sin dirección registrada'}`;
+          setTexto('sumDctoPct', clienteData.descuentoCliente || clienteData.descuento || 0);
+        }
 
-        todosLosProductos = data.productos;
-
-        const laboratorios = [...new Set(data.productos.map(p => p.proveedor))].filter(Boolean);
-        const labSelect = document.getElementById('labSelect');
-        laboratorios.forEach(lab => {
-          const opt = document.createElement('option');
-          opt.value = lab;
-          opt.innerText = lab;
-          labSelect.appendChild(opt);
-        });
-
-        renderProductos(todosLosProductos);
-
-      } catch (err) {
-        console.error('Error al inicializar catálogo:', err);
+        if (data.productos) {
+          todosLosProductos = data.productos;
+          poblarLaboratorios(todosLosProductos);
+          filtrarProductos();
+        }
+      } catch (error) {
+        console.error("Error al inicializar catálogo:", error);
       }
     }
 
-    function calcularBonificacion(cantidad, factor1, factor2) {
-      if (!factor1 || factor1 <= 0 || !factor2) return { cobradas: cantidad, gratis: 0 };
-      const tramos = Math.floor(cantidad / factor1);
-      const gratis = tramos * factor2;
-      return { cobradas: cantidad, gratis };
+    function poblarLaboratorios(productos) {
+      const select = document.getElementById('labSelect');
+      if (!select) return;
+      const labs = [...new Set(productos.map(p => p.proveedor).filter(Boolean))].sort();
+      select.innerHTML = '<option value="">Todos los Laboratorios</option>';
+      labs.forEach(lab => {
+        const opt = document.createElement('option');
+        opt.value = lab;
+        opt.textContent = lab;
+        select.appendChild(opt);
+      });
     }
 
+    // 1. RENDER PRODUCTOS: Se remueve el onchange del input para evitar cargas prematuras
     function renderProductos(lista) {
       const container = document.getElementById('productList');
+      if (!container) return;
       container.innerHTML = '';
+
+      if (lista.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--text-muted);">No se encontraron productos en esta categoría o filtro.</div>';
+        return;
+      }
 
       lista.forEach(p => {
         let badgeHTML = '';
@@ -407,18 +424,25 @@
         let oldPriceHTML = '';
         let promoUnitPriceHTML = '';
 
-        if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
-          const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x;
-          const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y;
+        const precioBase = Number(p.precioBase || 0);
+        const precioFinal = Number(p.precioFinal || precioBase);
 
+        if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+          const f1 = p.reglaVolumen.factor1;
+          const f2 = p.reglaVolumen.factor2;
           badgeHTML = `<span class="badge-promo-orange">PROMO ${f1}+${f2}</span>`;
           giftBannerHTML = `<div class="gift-banner">🎁 Por cada ${f1} unidades, ¡llevas ${f2} GRATIS!</div>`;
-
-          const precioEfectivo = Math.round((p.precioBase * f1) / (f1 + f2));
-          promoUnitPriceHTML = `<div class="promo-unit-price">Promo: $${precioEfectivo.toLocaleString('es-CL')} c/u</div>`;
-        } else if (p.tipoPromo === 'PORCENTAJE') {
-          badgeHTML = `<span class="badge-percent">-${p.descuentoPorcentaje}%</span>`;
-          oldPriceHTML = `<div class="old-price">$${Number(p.precioBase).toLocaleString('es-CL')}</div>`;
+          
+          if (precioBase > 0) {
+            const precioEfectivo = Math.round((precioBase * f1) / (f1 + f2));
+            promoUnitPriceHTML = `<div class="promo-unit-price">Promo: $${precioEfectivo.toLocaleString('es-CL')} c/u</div>`;
+          }
+        } else if (p.tipoPromo === 'PORCENTAJE' || p.descuentoPorcentaje > 0) {
+          badgeHTML = `<span class="badge-percent">-${p.descuentoPorcentaje}% OFF</span>`;
+          oldPriceHTML = `<div class="old-price">$${precioBase.toLocaleString('es-CL')}</div>`;
+        } else if (precioFinal < precioBase) {
+          badgeHTML = `<span class="badge-promo-orange">OFERTA</span>`;
+          oldPriceHTML = `<div class="old-price">$${precioBase.toLocaleString('es-CL')}</div>`;
         }
 
         const card = document.createElement('div');
@@ -430,19 +454,19 @@
               ${badgeHTML}
             </div>
             ${giftBannerHTML}
-            <div class="product-sub">${p.proveedor} • Cod: ${p.codigo}</div>
+            <div class="product-sub">${p.proveedor || ''} • Cod: ${p.codigo}</div>
           </div>
 
           <div class="product-action-zone">
             <div class="price-box">
               ${oldPriceHTML}
-              <div class="current-price">$${Number(p.precioFinal).toLocaleString('es-CL')}</div>
+              <div class="current-price">$${precioFinal.toLocaleString('es-CL')}</div>
               ${promoUnitPriceHTML}
             </div>
 
             <div class="counter-box">
               <input type="number" class="counter-input" value="0" min="0" id="qty-${p.codigo}">
-              <button class="btn-add" onclick="agregarAlCarrito('${p.codigo}')">+</button>
+              <button class="btn-add" onclick="agregarUnidad('${p.codigo}')">+</button>
             </div>
           </div>
         `;
@@ -450,280 +474,288 @@
       });
     }
 
-    function agregarAlCarrito(codigo) {
-      const input = document.getElementById(`qty-${codigo}`);
-      let aSumar = parseInt(input.value) || 0;
+    function filtrarProductos() {
+      const searchInput = document.getElementById('searchInput');
+      const labSelect = document.getElementById('labSelect');
+      const onlyOffersInput = document.getElementById('onlyOffers');
 
-      if (aSumar <= 0) return;
+      const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+      const lab = labSelect ? labSelect.value.trim() : '';
+      const soloOfertas = onlyOffersInput ? onlyOffersInput.checked : false;
 
-      const prod = todosLosProductos.find(p => p.codigo === codigo);
-      if (!prod) return;
+      const filtrados = todosLosProductos.filter(p => {
+        const nombre = String(p.nombre || '').toLowerCase();
+        const codigo = String(p.codigo || '').toLowerCase();
+        const proveedor = String(p.proveedor || '').trim();
 
-      const cantidadActual = carrito[codigo]?.cantidad || 0;
-      carrito[codigo] = {
-        ...prod,
-        precioBase: Number(prod.precioBase || 0),
-        precioFinal: Number(prod.precioFinal || prod.precioBase || 0), // 👈 Garantiza valor numérico
-        cantidad: cantidadActual + aSumar
-      };
+        const matchSearch = search === '' || nombre.includes(search) || codigo.includes(search);
+        const matchLab = lab === '' || proveedor.toLowerCase() === lab.toLowerCase();
+        const matchOferta = !soloOfertas || p.tienePromo || (p.precioFinal < p.precioBase);
 
-      input.value = 0;
-      actualizarTotal();
-    }
-
-    function actualizarTotal() {
-      let subtotal = 0;
-      let cantidadTotalItems = 0;
-
-      Object.values(carrito).forEach(item => {
-        let cobradas = item.cantidad;
-
-        if (item.tipoPromo === 'VOLUMEN' && item.reglaVolumen) {
-          const f1 = item.reglaVolumen.factor1 || item.reglaVolumen.x;
-          const f2 = item.reglaVolumen.factor2 || item.reglaVolumen.y;
-          const res = calcularBonificacion(item.cantidad, f1, f2);
-          cobradas = res.cobradas;
-        }
-
-        subtotal += cobradas * item.precioFinal;
-        cantidadTotalItems += item.cantidad;
+        return matchSearch && matchLab && matchOferta;
       });
 
-      const dctoPct = clienteData?.descuentoCliente || 0;
-      const dctoMonto = Math.round(subtotal * (dctoPct / 100));
-      const netoConDcto = subtotal - dctoMonto;
-      const iva = Math.round(netoConDcto * 0.19);
-      const total = netoConDcto + iva;
+      renderProductos(filtrados);
+    }
 
-      document.getElementById('cartTotal').innerText = `$${total.toLocaleString('es-CL')}`;
-      document.getElementById('cartCountBadge').innerText = cantidadTotalItems;
-      
-      document.getElementById('sumSubtotal').innerText = `$${subtotal.toLocaleString('es-CL')}`;
-      document.getElementById('sumDctoPct').innerText = dctoPct;
-      document.getElementById('sumDctoVal').innerText = `-$${dctoMonto.toLocaleString('es-CL')}`;
-      document.getElementById('sumNeto').innerText = `$${netoConDcto.toLocaleString('es-CL')}`;
-      document.getElementById('sumIva').innerText = `$${iva.toLocaleString('es-CL')}`;
-      document.getElementById('sumTotal').innerText = `$${total.toLocaleString('es-CL')}`;
+    // 2. AGREGAR UNIDAD: Asigna la cantidad tipeada al hacer clic en +, limpia el input y suma correctamente al carrito
+    function agregarUnidad(codigo) {
+      const inputEl = document.getElementById(`qty-${codigo}`);
+      const cantidadElegida = parseInt(inputEl ? inputEl.value : 0) || 0;
+
+      if (cantidadElegida <= 0) return;
+
+      const p = todosLosProductos.find(item => item.codigo === codigo);
+      if (!p) return;
+
+      if (!carrito[codigo]) {
+        carrito[codigo] = { producto: p, cantidad: 0 };
+      }
+
+      // Suma la cantidad tipeada al carrito
+      carrito[codigo].cantidad += cantidadElegida;
+
+      // Resetea la casilla a 0
+      if (inputEl) {
+        inputEl.value = 0;
+      }
+
+      actualizarTotalesCarrito();
+    }
+
+    // 3. MODIFICAR CANTIDAD: Administra la modificación manual directa desde el modal
+    function modificarCantidad(codigo, valor) {
+      const num = parseInt(valor) || 0;
+      const p = todosLosProductos.find(item => item.codigo === codigo);
+      if (!p) return;
+
+      if (num <= 0) {
+        delete carrito[codigo];
+      } else {
+        carrito[codigo] = { producto: p, cantidad: num };
+      }
+
+      actualizarTotalesCarrito();
+    }
+
+    function calcularValoresTotales() {
+      let totalCount = 0;
+      let totalNeto = 0;
+
+      Object.values(carrito).forEach(item => {
+        totalCount += item.cantidad;
+        totalNeto += item.producto.precioFinal * item.cantidad;
+      });
+
+      const dctoPct = clienteData.descuentoCliente || clienteData.descuento || 0;
+      const montoDcto = totalNeto * (dctoPct / 100);
+      const netoConDcto = totalNeto - montoDcto;
+      const iva = netoConDcto * 0.19;
+      const totalFinal = netoConDcto + iva;
+
+      return { totalCount, totalNeto, dctoPct, montoDcto, netoConDcto, iva, totalFinal };
+    }
+
+    function actualizarTotalesCarrito() {
+      const { totalCount, totalFinal } = calcularValoresTotales();
+      setTexto('cartCountBadge', totalCount);
+      setTexto('cartTotal', `$${Math.round(totalFinal).toLocaleString('es-CL')}`);
     }
 
     function abrirCarrito() {
-      if (Object.keys(carrito).length === 0) return alert('El pedido está vacío.');
-      renderModalItems();
-      document.getElementById('modalCart').style.display = 'flex';
+      const modal = document.getElementById('modalCart');
+      if (!modal) return;
+
+      const tbody = document.getElementById('modalItemsTable');
+      tbody.innerHTML = '';
+
+      let totalNetoGlobal = 0;
+
+      Object.values(carrito).forEach(item => {
+        const p = item.producto;
+        const precioUnitario = Number(p.precioFinal || p.precioBase || 0);
+        const subtotalFila = precioUnitario * item.cantidad;
+        totalNetoGlobal += subtotalFila;
+
+        // Fila del producto pagado
+        const rowPagado = document.createElement('tr');
+        rowPagado.innerHTML = `
+          <td>
+            <strong>${p.nombre}</strong><br>
+            <span class="unit-text">$${precioUnitario.toLocaleString('es-CL')} c/u</span>
+          </td>
+          <td class="text-center">
+            <button class="btn-mini" onclick="modificarCantidad('${p.codigo}', ${item.cantidad - 1}); abrirCarrito();">-</button>
+            <strong style="margin: 0 6px;">${item.cantidad}</strong>
+            <button class="btn-mini" onclick="modificarCantidad('${p.codigo}', ${item.cantidad + 1}); abrirCarrito();">+</button>
+          </td>
+          <td class="text-right item-total-price">$${Math.round(subtotalFila).toLocaleString('es-CL')}</td>
+          <td class="text-center">
+            <button class="btn-trash" onclick="modificarCantidad('${p.codigo}', 0); abrirCarrito();">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(rowPagado);
+
+        // Desglose de unidades GRATIS por volumen (ej: PROMO 10+2)
+        if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+          const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
+          const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
+
+          if (f1 > 0 && f2 > 0 && item.cantidad >= f1) {
+            const tramos = Math.floor(item.cantidad / f1);
+            const gratisTotal = tramos * f2;
+
+            if (gratisTotal > 0) {
+              const rowGratis = document.createElement('tr');
+              rowGratis.style.backgroundColor = '#ecfdf5';
+              rowGratis.innerHTML = `
+                <td>
+                  <strong style="color: #059669;">🎁 ${p.nombre} (REGALO)</strong><br>
+                  <span style="color: #059669; font-size: 11px; font-weight: 700;">PROMO ${f1}+${f2}</span>
+                </td>
+                <td class="text-center">
+                  <strong style="color: #059669;">${gratisTotal} un.</strong>
+                </td>
+                <td class="text-right item-total-price" style="color: #059669;">GRATIS</td>
+                <td class="text-center"></td>
+              `;
+              tbody.appendChild(rowGratis);
+            }
+          }
+        }
+      });
+
+      const dctoPct = Number(clienteData.descuentoCliente || clienteData.descuento || 0);
+      const montoDcto = totalNetoGlobal * (dctoPct / 100);
+      const netoConDcto = totalNetoGlobal - montoDcto;
+      const iva = netoConDcto * 0.19;
+      const totalFinal = netoConDcto + iva;
+
+      setTexto('sumSubtotal', `$${Math.round(totalNetoGlobal).toLocaleString('es-CL')}`);
+      setTexto('sumDctoVal', `-$${Math.round(montoDcto).toLocaleString('es-CL')}`);
+      setTexto('sumNeto', `$${Math.round(netoConDcto).toLocaleString('es-CL')}`);
+      setTexto('sumIva', `$${Math.round(iva).toLocaleString('es-CL')}`);
+      setTexto('sumTotal', `$${Math.round(totalFinal).toLocaleString('es-CL')}`);
+
+      modal.style.display = 'flex';
     }
 
     function cerrarCarrito() {
-      document.getElementById('modalCart').style.display = 'none';
+      const modal = document.getElementById('modalCart');
+      if (modal) modal.style.display = 'none';
     }
 
-    /* Renderizar la tabla de pedidos */
-    function renderModalItems() {
-      const container = document.getElementById('modalItemsTable');
-      container.innerHTML = '';
+    async function enviarPedidoFinal() {
+  const itemsList = Object.values(carrito);
+  if (itemsList.length === 0) {
+    alert("El carrito está vacío. Agrega productos antes de enviar.");
+    return;
+  }
 
-      Object.values(carrito).forEach(item => {
-        let dctoTexto = '-';
-        let cobradas = item.cantidad;
+  const comentario = document.getElementById('comentarioPedido')?.value || '';
+  const productosPayload = [];
 
-        if (item.tipoPromo === 'VOLUMEN' && item.reglaVolumen) {
-          const f1 = item.reglaVolumen.factor1 || item.reglaVolumen.x;
-          const f2 = item.reglaVolumen.factor2 || item.reglaVolumen.y;
-          const { gratis } = calcularBonificacion(item.cantidad, f1, f2);
-          
-          if (gratis > 0) {
-            dctoTexto = `<span style="color: var(--accent-orange); font-weight: 700;">+${gratis} Gratis 🎁</span>`;
-          } else {
-            dctoTexto = `Promo ${f1}+${f2}`;
-          }
-        } else if (item.tipoPromo === 'PORCENTAJE') {
-          dctoTexto = `<span style="color: var(--danger); font-weight: 700;">-${item.descuentoPorcentaje}%</span>`;
-        }
+  itemsList.forEach(item => {
+    const p = item.producto;
+    const precioUnitario = Number(p.precioFinal || p.precioBase || 0);
 
-        const sub = cobradas * item.precioFinal;
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>
-            <strong>${item.nombre}</strong><br>
-            <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
-              <button class="btn-mini" onclick="modificarCantidadModal('${item.codigo}', -1)">-</button>
-              <span class="unit-text">${item.cantidad} un.</span>
-              <button class="btn-mini" onclick="modificarCantidadModal('${item.codigo}', 1)">+</button>
-            </div>
-          </td>
-          <td class="text-center">${dctoTexto}</td>
-          <td class="text-right">
-            <span class="item-total-price">$${sub.toLocaleString('es-CL')}</span>
-          </td>
-          <td class="text-center">
-            <button class="btn-trash" onclick="eliminarItemModal('${item.codigo}')">🗑️</button>
-          </td>
-        `;
-        container.appendChild(row);
-      });
-      actualizarTotal();
-    }
-
-    function modificarCantidadModal(codigo, cambio) {
-      if (!carrito[codigo]) return;
-      
-      carrito[codigo].cantidad += cambio;
-      if (carrito[codigo].cantidad <= 0) {
-        delete carrito[codigo];
-      }
-
-      renderModalItems();
-      actualizarTotal();
-    }
-
-    function eliminarItemModal(codigo) {
-      delete carrito[codigo];
-      renderModalItems();
-      actualizarTotal();
-    }
-
-   function filtrarProductos() {
-  const searchInput = document.getElementById('searchInput');
-  const labSelect = document.getElementById('labSelect');
-  const onlyOffersInput = document.getElementById('onlyOffers');
-
-  // Asegurar lectura limpia de valores
-  const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
-  const lab = labSelect ? labSelect.value.trim() : '';
-  const soloOfertas = onlyOffersInput ? onlyOffersInput.checked : false;
-
-  const filtrados = todosLosProductos.filter(p => {
-    // 1. Manejo seguro de string por si viene null o undefined desde la BD
-    const nombre = String(p.nombre || '').toLowerCase();
-    const codigo = String(p.codigo || '').toLowerCase();
-    const proveedor = String(p.proveedor || '').trim();
-
-    // 2. Coincidencia de Búsqueda (Nombre o Código)
-    const matchSearch = search === '' || nombre.includes(search) || codigo.includes(search);
-
-    // 3. Coincidencia de Laboratorio / Proveedor
-    // (Tolera si el option por defecto es "", "TODOS", "todos" o "ALL")
-    const esOpcionTodos = lab === '' || lab.toUpperCase() === 'TODOS' || lab.toUpperCase() === 'ALL';
-    const matchLab = esOpcionTodos || proveedor.toLowerCase() === lab.toLowerCase();
-
-    // 4. Coincidencia de Ofertas
-    const matchOferta = !soloOfertas || Boolean(p.tienePromo);
-
-    return matchSearch && matchLab && matchOferta;
-  });
-
-  renderProductos(filtrados);
-}
-
-async function enviarPedidoFinal() {
-  const items = Object.values(carrito);
-  if (items.length === 0) return alert('El pedido está vacío.');
-
-  const comentario = document.getElementById('comentarioPedido').value;
-  const listaProductosProcesada = [];
-
-  items.forEach(item => {
-    let tieneRegalo = false;
-    let unidadesGratis = 0;
+    // Texto de promoción limpio para la notificación/correo
     let textoPromo = 'Sin promo';
-
-    // 👈 fallback defensivo para asegurar que SIEMPRE sea un número válido
-    let precioCalculado = Number(item.precioFinal ?? item.precioBase ?? 0);
-
-    // 1. Promoción Porcentaje
-    if (item.tipoPromo === 'PORCENTAJE' && item.descuentoPorcentaje > 0) {
-      textoPromo = `${item.descuentoPorcentaje}%`;
-      precioCalculado = Number(item.precioFinal || item.precioBase || 0);
-    } 
-    // 2. Promoción Volumen (Regalo)
-    else if (item.tipoPromo === 'VOLUMEN' && item.reglaVolumen) {
-      const f1 = item.reglaVolumen.factor1 || item.reglaVolumen.x;
-      const f2 = item.reglaVolumen.factor2 || item.reglaVolumen.y;
-      const res = calcularBonificacion(item.cantidad, f1, f2);
-
-      if (res.gratis > 0) {
-        tieneRegalo = true;
-        unidadesGratis = res.gratis;
-        textoPromo = 'Promo Regalo';
-      } else {
-        textoPromo = `Promo ${f1}+${f2}`;
-      }
+    if (p.tipoPromo === 'PORCENTAJE' || p.descuentoPorcentaje > 0) {
+      textoPromo = `Descuento ${p.descuentoPorcentaje}%`;
+    } else if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+      const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
+      const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
+      textoPromo = `Promo ${f1}+${f2}`;
     }
 
-    // Fila principal del producto a su precio
-    listaProductosProcesada.push({
-      codigo: item.codigo,
-      nombre: item.nombre,
+    // 1. Fila de unidades pagadas
+    productosPayload.push({
+      codigo: p.codigo,
+      nombre: p.nombre,
       cantidad: Number(item.cantidad),
-      precio: Math.round(precioCalculado), // 👈 Asegura entero válido sin NaN
+      precio: Math.round(precioUnitario),
       promo: textoPromo
     });
 
-    // Fila independiente de regalía a $1
-    if (tieneRegalo && unidadesGratis > 0) {
-      listaProductosProcesada.push({
-        codigo: item.codigo,
-        nombre: item.nombre,
-        cantidad: Number(unidadesGratis),
-        precio: 1,
-        promo: 'REGALO'
-      });
+    // 2. Fila de unidades gratis (Agrega 'X' al código para carga ERP)
+    if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+      const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
+      const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
+
+      if (f1 > 0 && f2 > 0 && item.cantidad >= f1) {
+        const tramos = Math.floor(item.cantidad / f1);
+        const gratisTotal = tramos * f2;
+
+        if (gratisTotal > 0) {
+          productosPayload.push({
+            codigo: `X${p.codigo}`, // 👈 'X' inicial para ERP
+            nombre: `${p.nombre} (REGALO)`,
+            cantidad: gratisTotal,
+            precio: 1, // Precio $1 nominal para el ERP
+            promo: `🎁 Promo ${f1}+${f2} Gratis`
+          });
+        }
+      }
     }
   });
 
-  // Totales de la orden
-  let subtotal = 0;
-  listaProductosProcesada.forEach(p => {
-    subtotal += p.cantidad * p.precio;
+  let totalNetoGlobal = 0;
+  itemsList.forEach(i => {
+    totalNetoGlobal += Number(i.producto.precioFinal || i.producto.precioBase || 0) * i.cantidad;
   });
 
-  const dctoPct = Number(clienteData?.descuentoCliente || 0);
-  const dctoMonto = Math.round(subtotal * (dctoPct / 100));
-  const netoConDcto = subtotal - dctoMonto;
-  const iva = Math.round(netoConDcto * 0.19);
-  const total = netoConDcto + iva;
+  const dctoPct = Number(clienteData.descuentoCliente || clienteData.descuento || 0);
+  const montoDcto = totalNetoGlobal * (dctoPct / 100);
+  const netoConDcto = totalNetoGlobal - montoDcto;
+  const iva = netoConDcto * 0.19;
+  const totalFinal = netoConDcto + iva;
 
-  const body = {
+  const payload = {
     cliente: {
       rut: clienteData.rut,
       nombre: clienteData.nombre,
-      correo: clienteData.correo || clienteData.vendedorCorreo || '',
-      vendedor: clienteData.vendedor,
-      vendedorCorreo: clienteData.vendedorCorreo,
-      vendedorTelefono: clienteData.vendedorTelefono,
-      direccion: clienteData.direccion
+      direccion: clienteData.direccion,
+      correo: clienteData.vendedorCorreo || 'fvaldebenito@novovet.cl',
+      vendedor: clienteData.vendedor || 'Novovet',
+      vendedorCorreo: clienteData.vendedorCorreo || ''
     },
-    productos: listaProductosProcesada,
+    productos: productosPayload,
     resumen: {
-      subtotal,
-      descuentoPct: dctoPct,
-      descuento: dctoMonto,
-      neto: netoConDcto,
-      iva,
-      total
+      subtotal: Math.round(totalNetoGlobal),
+      descuento: Math.round(montoDcto),
+      neto: Math.round(netoConDcto),
+      iva: Math.round(iva),
+      total: Math.round(totalFinal)
     },
-    comentario: comentario
+    comentario
   };
 
   try {
     const res = await fetch('/api/pedidos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify(payload)
     });
 
     const resp = await res.json();
-    if (resp.exito) {
-      alert(`✅ Pedido #${resp.codigoPedido} registrado e ingresado en base de datos correctamente.`);
+
+    if (res.ok && resp.exito) {
+      alert(`✅ Pedido #${resp.codigoPedido} registrado e ingresado con éxito.`);
+      carrito = {};
+      actualizarTotalesCarrito();
+      cerrarCarrito();
       window.location.reload();
     } else {
-      alert('Error: ' + resp.mensaje);
+      alert('Error al registrar pedido: ' + (resp.mensaje || ''));
     }
   } catch (err) {
+    console.error('Error al conectar con el servidor:', err);
     alert('Error conectando con el servidor.');
   }
 }
 
-    init();
-  </script>
+    document.addEventListener('DOMContentLoaded', init);
+</script>
 </body>
 </html>

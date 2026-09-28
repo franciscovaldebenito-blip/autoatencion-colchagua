@@ -23,7 +23,7 @@ app.get('/api/catalogo/:rut', async (req, res) => {
   try {
     const rutLimpio = String(rut).trim();
 
-    // 1. Obtener cliente
+    // 1. Obtener cliente desde colcha_clientes
     const { data: cliente, error: errCliente } = await supabase
       .from('colcha_clientes')
       .select('rut, nombre, direccion, c_pago, linea_de_credito, descuento, lista, vendedor_1')
@@ -57,10 +57,10 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       });
     }
 
-    // 3. Buscar información del vendedor
+    // 3. Buscar información del vendedor en colcha_info_vendedores
     const rawVendedor = (cliente.vendedor_1 && cliente.vendedor_1.trim() !== '') 
       ? cliente.vendedor_1.trim() 
-      : 'novovet';
+      : 'Novovet';
 
     let vendedorCorreo = '-';
     let vendedorTelefono = '-';
@@ -96,7 +96,6 @@ app.get('/api/catalogo/:rut', async (req, res) => {
     const paso = 1000;
     let hayMasRegistros = true;
 
-    // Bucle para iterar y superar el límite de 1000 filas de Supabase
     while (hayMasRegistros) {
       const { data: bloque, error: errArt } = await supabase
         .from('colcha_articulos')
@@ -117,25 +116,29 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       }
     }
 
-    // Cargar promociones
-    const { data: resPromociones } = await supabase.from('colcha_promociones').select('*');
+    // Cargar promociones con código sanitizado
+    const { data: resPromociones } = await supabase.from('Colcha_promociones').select('*');
 
     const mapaPromos = new Map();
-    if (resPromociones) {
-      resPromociones.forEach(p => mapaPromos.set(p.codigo, p));
+    if (resPromociones && resPromociones.length > 0) {
+      resPromociones.forEach(p => {
+        if (p.codigo) {
+          mapaPromos.set(String(p.codigo).trim().toUpperCase(), p);
+        }
+      });
     }
 
     // ==========================================
-    // 5. PROCESAR PRODUCTOS
+    // 5. PROCESAR PRODUCTOS Y APLICAR DESCUENTOS
     // ==========================================
     const productos = todosLosArticulos.map(art => {
-      // Intenta leer la lista del cliente; si es null/undefined, recurre a lista_1 o 0
       const precioBruto = art[columnaLista] !== undefined && art[columnaLista] !== null 
         ? art[columnaLista] 
         : art.lista_1;
         
       const precioBase = Number(precioBruto || 0);
-      const promoData = mapaPromos.get(art.codigo);
+      const codigoKey = String(art.codigo || '').trim().toUpperCase();
+      const promoData = mapaPromos.get(codigoKey);
 
       let tienePromo = false;
       let porcentajeDcto = 0;
@@ -143,20 +146,32 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       let tipoPromo = null;
       let reglaVolumen = null;
 
-      if (promoData && String(promoData.aplica_promo || '').toUpperCase() === 'SI') {
-        const f1 = promoData.factor_1 !== null && promoData.factor_1 !== undefined ? Number(promoData.factor_1) : null;
-        const f2 = promoData.factor_2 !== null && promoData.factor_2 !== undefined ? Number(promoData.factor_2) : null;
-        const f4 = promoData.factor_4 !== null && promoData.factor_4 !== undefined ? Number(promoData.factor_4) : null;
+      if (promoData && String(promoData.aplica_promo || '').trim().toUpperCase() === 'SI') {
+        // Parsear factores numéricos/flotantes
+        const f1 = promoData.factor_1 !== null && promoData.factor_1 !== undefined ? parseFloat(promoData.factor_1) : null;
+        const f2 = promoData.factor_2 !== null && promoData.factor_2 !== undefined ? parseFloat(promoData.factor_2) : null;
+        const f4 = promoData.factor_4 !== null && promoData.factor_4 !== undefined ? parseFloat(promoData.factor_4) : null;
 
-        if (f1 !== null && f1 > 0) {
-          tienePromo = true;
-          tipoPromo = 'VOLUMEN';
-          reglaVolumen = { factor1: f1, factor2: f2 ?? 0, x: f1, y: f2 ?? 0 };
-        } else if (f4 !== null && f4 > 0) {
+        // 1. Promo por Porcentaje (ej: factor_4 = 0.3 o factor_4 = 30)
+        if (f4 !== null && !isNaN(f4) && f4 > 0) {
           tienePromo = true;
           tipoPromo = 'PORCENTAJE';
-          porcentajeDcto = Math.round(f4 * 100);
-          precioFinal = Math.round(precioBase * (1 - f4));
+          
+          // Soporta tanto formato decimal (0.3) como entero (30)
+          const factorDecimal = f4 > 1 ? f4 / 100 : f4;
+          porcentajeDcto = Math.round(factorDecimal * 100);
+          precioFinal = Math.round(precioBase * (1 - factorDecimal));
+        } 
+        // 2. Promo por Volumen (ej: 4 + 1)
+        else if (f1 !== null && !isNaN(f1) && f1 > 0) {
+          tienePromo = true;
+          tipoPromo = 'VOLUMEN';
+          reglaVolumen = { 
+            factor1: f1, 
+            factor2: (f2 && !isNaN(f2)) ? f2 : 0, 
+            x: f1, 
+            y: (f2 && !isNaN(f2)) ? f2 : 0 
+          };
         }
       }
 
@@ -176,7 +191,7 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       };
     });
 
-    // 6. Respuesta JSON
+    // 6. Respuesta JSON - Se asegura mapeo completo con las columnas reales de la tabla
     return res.json({
       exito: true,
       cliente: {
@@ -184,8 +199,11 @@ app.get('/api/catalogo/:rut', async (req, res) => {
         nombre: cliente.nombre,
         direccion: cliente.direccion,
         condicionPago: cliente.c_pago,
+        condicion: cliente.c_pago,
         lineaCredito: cliente.linea_de_credito,
+        credito: cliente.linea_de_credito,
         descuentoCliente: cliente.descuento,
+        descuento: cliente.descuento,
         montoVencido,
         montoVigente,
         vendedor: vendedorNombre,
@@ -202,7 +220,9 @@ app.get('/api/catalogo/:rut', async (req, res) => {
   }
 });
 
-
+// ==========================================
+// 2. GUARDAR PEDIDO Y ENVIAR NOTIFICACIÓN
+// ==========================================
 // ==========================================
 // 2. GUARDAR PEDIDO Y ENVIAR NOTIFICACIÓN
 // ==========================================
@@ -217,6 +237,7 @@ app.post('/api/pedidos', async (req, res) => {
     const fecha = fechaActual.toISOString().split('T')[0];
     const hora = fechaActual.toTimeString().split(' ')[0];
 
+    // 1. Insertar Cabecera en Supabase
     const { data: pedidoCreado, error: errCabecera } = await supabase
       .from('col_pedidos')
       .insert([
@@ -242,6 +263,7 @@ app.post('/api/pedidos', async (req, res) => {
       });
     }
 
+    // 2. Insertar Detalle en Supabase
     const lineasDetalle = productos.map(item => ({
       codigo_pedido: codigoPedido,
       producto: item.nombre,
@@ -262,23 +284,38 @@ app.post('/api/pedidos', async (req, res) => {
       });
     }
 
+    // 3. Notificación a Google Apps Script (Sincronizado con tu doPost)
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLyIfAfAAqWmME2prGHxKeFJB5QU93KCWwgNepqGeOy8QfK05Iz7zUmuYG3jEkp1Va/exec';
 
     try {
+      // Estructuramos el payload EXACTAMENTE como lo espera tu función doPost
+      const payloadGoogle = {
+        codigoPedido: codigoPedido,
+        cliente: {
+          rut: cliente.rut || '',
+          nombre: cliente.nombre || '',
+          correo: cliente.correo || cliente.email || '',
+          vendedor: cliente.vendedor || 'Novovet',
+          vendedorCorreo: cliente.vendedorCorreo || cliente.correoVendedor || ''
+        },
+        productos: productos,
+        resumen: {
+          subtotal: resumen.subtotal || resumen.subtotalNeto || 0,
+          descuento: resumen.descuento || resumen.descuentoMonto || 0,
+          iva: resumen.iva || 0,
+          total: resumen.total || resumen.totalFinal || 0
+        },
+        comentario: comentario || ''
+      };
+
       const respScript = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          codigoPedido,
-          cliente,
-          productos,
-          resumen,
-          comentario
-        })
+        body: JSON.stringify(payloadGoogle)
       });
 
       const resultadoAppsScript = await respScript.text();
-      console.log('📬 Respuesta de Apps Script:', resultadoAppsScript);
+      console.log('📬 Respuesta de Google Apps Script:', resultadoAppsScript);
 
     } catch (errCorreo) {
       console.error('⚠️ Error al conectar con Google Apps Script:', errCorreo.message);
