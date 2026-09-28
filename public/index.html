@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novovet - Portal Auto-Atención</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); text-align: center; max-width: 400px; width: 90%; }
+    .logo { color: #008080; font-size: 32px; font-weight: bold; margin-bottom: 8px; }
+    .subtitle { color: #666; font-size: 14px; margin-bottom: 24px; }
+    input { width: 100%; padding: 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; margin-bottom: 16px; outline: none; }
+    input:focus { border-color: #008080; }
+    button { width: 100%; background-color: #0d8a72; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+    button:hover { background-color: #096654; }
+    .error { color: #d32f2f; font-size: 14px; margin-top: 12px; display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo">Novovet</div>
+    <div class="subtitle">Consulta de Clientes / Vendedor</div>
+    
+    <form id="searchForm">
+      <input type="text" id="rutInput" placeholder="Ingresa RUT del Cliente" required autofocus>
+      <button type="submit">VER CATÁLOGO CLIENTE</button>
+    </form>
+    
+    <div id="errorMsg" class="error">RUT no encontrado. Revisa e intenta de nuevo.</div>
+  </div>
+
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const rut = document.getElementById('rutInput').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
+      errorMsg.style.display = 'none';
+
+      try {
+        const response = await fetch(`/api/catalogo/${rut}`);
+        if (!response.ok) throw new Error('Cliente no existe');
+        
+        // Guardar RUT en memoria local y redireccionar a la pantalla del catálogo
+        localStorage.setItem('clienteRut', rut);
+        window.location.href = '/catalogo.html';
+      } catch (err) {
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>
