@@ -57,6 +57,20 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       });
     }
 
+    // 2.1 Obtener cheques desde col_cheques (LEYENDO ÚNICAMENTE LA COLUMNA SALDO)
+    const { data: cheques, error: errCheques } = await supabase
+      .from('col_cheques')
+      .select('saldo, cliente')
+      .ilike('cliente', `%${rutLimpio}%`);
+
+    let montoCheques = 0;
+
+    if (!errCheques && cheques && cheques.length > 0) {
+      cheques.forEach(ch => {
+        montoCheques += Number(ch.saldo || 0);
+      });
+    }
+
     // 3. Buscar información del vendedor en colcha_info_vendedores
     const rawVendedor = (cliente.vendedor_1 && cliente.vendedor_1.trim() !== '') 
       ? cliente.vendedor_1.trim() 
@@ -147,23 +161,17 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       let reglaVolumen = null;
 
       if (promoData && String(promoData.aplica_promo || '').trim().toUpperCase() === 'SI') {
-        // Parsear factores numéricos/flotantes
         const f1 = promoData.factor_1 !== null && promoData.factor_1 !== undefined ? parseFloat(promoData.factor_1) : null;
         const f2 = promoData.factor_2 !== null && promoData.factor_2 !== undefined ? parseFloat(promoData.factor_2) : null;
         const f4 = promoData.factor_4 !== null && promoData.factor_4 !== undefined ? parseFloat(promoData.factor_4) : null;
 
-        // 1. Promo por Porcentaje (ej: factor_4 = 0.3 o factor_4 = 30)
         if (f4 !== null && !isNaN(f4) && f4 > 0) {
           tienePromo = true;
           tipoPromo = 'PORCENTAJE';
-          
-          // Soporta tanto formato decimal (0.3) como entero (30)
           const factorDecimal = f4 > 1 ? f4 / 100 : f4;
           porcentajeDcto = Math.round(factorDecimal * 100);
           precioFinal = Math.round(precioBase * (1 - factorDecimal));
-        } 
-        // 2. Promo por Volumen (ej: 4 + 1)
-        else if (f1 !== null && !isNaN(f1) && f1 > 0) {
+        } else if (f1 !== null && !isNaN(f1) && f1 > 0) {
           tienePromo = true;
           tipoPromo = 'VOLUMEN';
           reglaVolumen = { 
@@ -191,7 +199,7 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       };
     });
 
-    // 6. Respuesta JSON - Se asegura mapeo completo con las columnas reales de la tabla
+    // 6. Respuesta JSON
     return res.json({
       exito: true,
       cliente: {
@@ -206,6 +214,7 @@ app.get('/api/catalogo/:rut', async (req, res) => {
         descuento: cliente.descuento,
         montoVencido,
         montoVigente,
+        montoCheques,
         vendedor: vendedorNombre,
         vendedorCorreo: vendedorCorreo,
         vendedorTelefono: vendedorTelefono,
@@ -220,9 +229,6 @@ app.get('/api/catalogo/:rut', async (req, res) => {
   }
 });
 
-// ==========================================
-// 2. GUARDAR PEDIDO Y ENVIAR NOTIFICACIÓN
-// ==========================================
 // ==========================================
 // 2. GUARDAR PEDIDO Y ENVIAR NOTIFICACIÓN
 // ==========================================
@@ -284,11 +290,10 @@ app.post('/api/pedidos', async (req, res) => {
       });
     }
 
-    // 3. Notificación a Google Apps Script (Sincronizado con tu doPost)
+    // 3. Notificación a Google Apps Script
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLyIfAfAAqWmME2prGHxKeFJB5QU93KCWwgNepqGeOy8QfK05Iz7zUmuYG3jEkp1Va/exec';
 
     try {
-      // Estructuramos el payload EXACTAMENTE como lo espera tu función doPost
       const payloadGoogle = {
         codigoPedido: codigoPedido,
         cliente: {

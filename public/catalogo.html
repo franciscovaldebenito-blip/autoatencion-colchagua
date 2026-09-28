@@ -470,12 +470,14 @@
           <div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;">Dcto. Cliente: <strong id="cliDcto">0%</strong> (Lista <span id="cliLista">1</span>)</div>
         </div>
 
-        <!-- 2. Estado de Cuenta -->
+      <!-- 2. Estado de Cuenta -->
         <div class="kpi-box">
           <div class="kpi-title">Estado de Cuenta</div>
           <div class="kpi-value">
             Vencido: <span id="cliVencido" class="status-badge-vencido">$0</span><br>
-            <span style="display:inline-block; margin-top:3px;">Vigente: <span id="cliVigente" class="status-badge-vigente">$0</span></span>
+            <span style="display:inline-block; margin-top:3px;">Vigente: <span id="cliVigente" class="status-badge-vigente">$0</span></span><br>
+            <!-- 👈 Línea agregada para Cheques -->
+            <span style="display:inline-block; margin-top:3px;">Cheques: <span id="cliCheques" style="color: #2563eb; font-weight: 700;">$0</span></span>
           </div>
         </div>
 
@@ -578,42 +580,53 @@
       if (el) el.innerText = (valor !== undefined && valor !== null && valor !== '') ? valor : '-';
     }
 
-    async function init() {
-      try {
-        const rut = localStorage.getItem('clienteRut') || '13909907-9';
-        const res = await fetch(`/api/catalogo/${rut}`);
-        const data = await res.json();
+   async function init() {
+  try {
+    // Busca el RUT ingresado previamente
+    const rut = localStorage.getItem('clienteRut');
 
-        if (data.cliente) {
-          clienteData = data.cliente;
-          
-          setTexto('cliNombre', clienteData.nombre || 'Cliente General');
-          setTexto('cliSub', `RUT: ${clienteData.rut || ''} • 📍 ${clienteData.direccion || ''}`);
-          setTexto('cliCondicion', clienteData.condicionPago || clienteData.condicion || 'contado');
-          setTexto('cliCredito', Number(clienteData.lineaCredito || clienteData.credito || 0).toLocaleString('es-CL'));
-          setTexto('cliDcto', `${clienteData.descuentoCliente || clienteData.descuento || 0}%`);
-          setTexto('cliLista', clienteData.listaAplicada || '1');
-          setTexto('cliVencido', `$${Number(clienteData.montoVencido || 0).toLocaleString('es-CL')}`);
-          setTexto('cliVigente', `$${Number(clienteData.montoVigente || 0).toLocaleString('es-CL')}`);
-
-          setTexto('ejeNombre', clienteData.vendedor || 'Novovet');
-          setTexto('ejeCorreo', clienteData.vendedorCorreo || '-');
-          setTexto('ejeTelefono', clienteData.vendedorTelefono || '-');
-
-          const dirTexto = document.getElementById('direccionTexto');
-          if (dirTexto) dirTexto.innerText = `📍 ${clienteData.direccion || 'Sin dirección registrada'}`;
-          setTexto('sumDctoPct', clienteData.descuentoCliente || clienteData.descuento || 0);
-        }
-
-        if (data.productos) {
-          todosLosProductos = data.productos;
-          poblarLaboratorios(todosLosProductos);
-          filtrarProductos();
-        }
-      } catch (error) {
-        console.error("Error al inicializar catálogo:", error);
-      }
+    // Si no hay RUT guardado, redirige al usuario a la pantalla de búsqueda/login
+    if (!rut) {
+      window.location.href = '/index.html'; 
+      return;
     }
+
+    const res = await fetch(`/api/catalogo/${rut}`);
+    const data = await res.json();
+
+    if (data.cliente) {
+      clienteData = data.cliente;
+      
+      setTexto('cliNombre', clienteData.nombre || 'Cliente General');
+      setTexto('cliSub', `RUT: ${clienteData.rut || ''} • 📍 ${clienteData.direccion || ''}`);
+      setTexto('cliCondicion', clienteData.condicionPago || clienteData.condicion || 'contado');
+      setTexto('cliCredito', Number(clienteData.lineaCredito || clienteData.credito || 0).toLocaleString('es-CL'));
+      setTexto('cliDcto', `${clienteData.descuentoCliente || clienteData.descuento || 0}%`);
+      setTexto('cliLista', clienteData.listaAplicada || '1');
+      setTexto('cliVencido', `$${Number(clienteData.montoVencido || 0).toLocaleString('es-CL')}`);
+      setTexto('cliVigente', `$${Number(clienteData.montoVigente || 0).toLocaleString('es-CL')}`);
+      
+      // Muestra el monto correspondiente a Cheques
+      setTexto('cliCheques', `$${Number(clienteData.montoCheques || clienteData.cheques || 0).toLocaleString('es-CL')}`);
+
+      setTexto('ejeNombre', clienteData.vendedor || 'Novovet');
+      setTexto('ejeCorreo', clienteData.vendedorCorreo || '-');
+      setTexto('ejeTelefono', clienteData.vendedorTelefono || '-');
+
+      const dirTexto = document.getElementById('direccionTexto');
+      if (dirTexto) dirTexto.innerText = `📍 ${clienteData.direccion || 'Sin dirección registrada'}`;
+      setTexto('sumDctoPct', clienteData.descuentoCliente || clienteData.descuento || 0);
+    }
+
+    if (data.productos) {
+      todosLosProductos = data.productos;
+      poblarLaboratorios(todosLosProductos);
+      filtrarProductos();
+    }
+  } catch (error) {
+    console.error("Error al inicializar catálogo:", error);
+  }
+}
 
     function poblarLaboratorios(productos) {
       const select = document.getElementById('labSelect');
