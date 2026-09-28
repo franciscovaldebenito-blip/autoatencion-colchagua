@@ -66,15 +66,15 @@
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03); 
       margin-bottom: 24px; 
       display: grid;
-      grid-template-columns: 1fr 190px; /* Reducimos ligeramente el ancho de la caja derecha */
-      gap: 20px;
-      align-items: stretch;
+      grid-template-columns: 1fr 150px; /* Reducido a 150px fijosa para dar más espacio al cliente */
+      gap: 16px;
+      align-items: center;
     }
     
     .client-name { font-size: 20px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 4px; }
     .client-sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 16px; }
 
-    /* KPI Grid */
+    /* KPI Grid - Ahora con suficiente ancho para holgura */
     .kpi-grid { 
       display: grid; 
       grid-template-columns: repeat(3, 1fr); 
@@ -90,39 +90,37 @@
     .status-badge-vencido { color: var(--danger); font-weight: 700; background: var(--danger-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
     .status-badge-vigente { color: var(--success); font-weight: 700; background: var(--success-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; }
 
-    /* Resumen Pedido Card (Ajustado) */
+    /* Resumen Pedido Card COMPACTO */
     .cart-summary-box { 
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
       border: 1.5px solid var(--border-color); 
       border-radius: 14px; 
-      padding: 14px 10px; 
+      padding: 12px 8px; 
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100%;
+      align-self: center; /* No se estira hacia arriba ni abajo */
     }
-    .cart-label { font-size: 10px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+    .cart-label { font-size: 9px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.3px; text-transform: uppercase; line-height: 1.2; }
     .cart-badge { background-color: var(--danger); color: white; font-size: 10px; font-weight: 800; border-radius: 20px; padding: 1px 6px; display: inline-flex; justify-content: center; align-items: center; margin-left: 2px; }
     
-    /* Monto con fuente ajustada */
-    .cart-total { font-size: 22px; font-weight: 900; color: var(--primary); margin: 4px 0 8px 0; letter-spacing: -0.5px; }
+    .cart-total { font-size: 20px; font-weight: 900; color: var(--primary); margin: 4px 0 8px 0; letter-spacing: -0.5px; }
     
-    /* Botón achicado y compacto */
     .cart-link-btn { 
-      width: auto;
-      min-width: 120px;
+      width: 100%;
       background: var(--primary); 
       color: white; 
-      font-size: 12px; 
+      font-size: 11px; 
       font-weight: 700; 
-      padding: 6px 14px; 
+      padding: 6px 8px; 
       border-radius: 6px; 
       border: none;
       cursor: pointer; 
       transition: all 0.2s ease;
       box-shadow: 0 2px 6px rgba(30, 64, 175, 0.2);
+      white-space: nowrap;
     }
     .cart-link-btn:hover { background: var(--primary-dark); }
 
@@ -207,7 +205,7 @@
     .btn-submit:hover { background: var(--primary-dark); }
     .btn-close { width: 100%; background: transparent; color: var(--text-muted); border: none; padding: 10px; margin-top: 4px; font-size: 13px; cursor: pointer; text-align: center; font-weight: 600; }
 
-    /* SOLO para teléfonos móviles en vertical (pantallas menores a 480px) */
+    /* Adaptación móviles muy pequeños */
     @media (max-width: 480px) {
       .client-card { grid-template-columns: 1fr; }
       .kpi-grid { grid-template-columns: 1fr; }
