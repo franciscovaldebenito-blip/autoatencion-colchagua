@@ -88,21 +88,53 @@ app.get('/api/catalogo/:rut', async (req, res) => {
     const numeroLista = cliente.lista || 1;
     const columnaLista = `lista_${numeroLista}`;
 
-    // 4. Cargar artículos y promociones
-    const [resArticulos, resPromociones] = await Promise.all([
-      supabase.from('colcha_articulos').select('*'),
-      supabase.from('Colcha_promociones').select('*')
-    ]);
+    // ==========================================
+    // 4. CARGAR TODOS LOS ARTÍCULOS (PAGINACIÓN) Y PROMOCIONES
+    // ==========================================
+    let todosLosArticulos = [];
+    let desde = 0;
+    const paso = 1000;
+    let hayMasRegistros = true;
 
-    if (resArticulos.error) throw resArticulos.error;
-    if (resPromociones.error) throw resPromociones.error;
+    // Bucle para iterar y superar el límite de 1000 filas de Supabase
+    while (hayMasRegistros) {
+      const { data: bloque, error: errArt } = await supabase
+        .from('colcha_articulos')
+        .select('*')
+        .range(desde, desde + paso - 1);
+
+      if (errArt) throw errArt;
+
+      if (bloque && bloque.length > 0) {
+        todosLosArticulos = todosLosArticulos.concat(bloque);
+        desde += paso;
+
+        if (bloque.length < paso) {
+          hayMasRegistros = false;
+        }
+      } else {
+        hayMasRegistros = false;
+      }
+    }
+
+    // Cargar promociones
+    const { data: resPromociones } = await supabase.from('colcha_promociones').select('*');
 
     const mapaPromos = new Map();
-    resPromociones.data.forEach(p => mapaPromos.set(p.codigo, p));
+    if (resPromociones) {
+      resPromociones.forEach(p => mapaPromos.set(p.codigo, p));
+    }
 
-    // 5. Procesar productos
-    const productos = resArticulos.data.map(art => {
-      const precioBase = art[columnaLista] || 0;
+    // ==========================================
+    // 5. PROCESAR PRODUCTOS
+    // ==========================================
+    const productos = todosLosArticulos.map(art => {
+      // Intenta leer la lista del cliente; si es null/undefined, recurre a lista_1 o 0
+      const precioBruto = art[columnaLista] !== undefined && art[columnaLista] !== null 
+        ? art[columnaLista] 
+        : art.lista_1;
+        
+      const precioBase = Number(precioBruto || 0);
       const promoData = mapaPromos.get(art.codigo);
 
       let tienePromo = false;
@@ -111,7 +143,7 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       let tipoPromo = null;
       let reglaVolumen = null;
 
-      if (promoData && (promoData.aplica_promo === 'Si' || promoData.aplica_promo === 'SI')) {
+      if (promoData && String(promoData.aplica_promo || '').toUpperCase() === 'SI') {
         const f1 = promoData.factor_1 !== null && promoData.factor_1 !== undefined ? Number(promoData.factor_1) : null;
         const f2 = promoData.factor_2 !== null && promoData.factor_2 !== undefined ? Number(promoData.factor_2) : null;
         const f4 = promoData.factor_4 !== null && promoData.factor_4 !== undefined ? Number(promoData.factor_4) : null;
@@ -166,7 +198,7 @@ app.get('/api/catalogo/:rut', async (req, res) => {
 
   } catch (error) {
     console.error('Error al cargar catálogo:', error.message);
-    return res.status(500).json({ exito: false, mensaje: 'Error al procesar el catálogo.' });
+    return res.status(500).json({ exito: false, mensaje: 'Error al procesar el catálogo: ' + error.message });
   }
 });
 
@@ -178,7 +210,6 @@ app.post('/api/pedidos', async (req, res) => {
   try {
     const { cliente, productos, comentario, resumen } = req.body;
 
-    // 1. Generar código único para el pedido
     const numeroAleatorio = Math.floor(100000 + Math.random() * 900000);
     const codigoPedido = `NV-${numeroAleatorio}`;
 
@@ -186,7 +217,6 @@ app.post('/api/pedidos', async (req, res) => {
     const fecha = fechaActual.toISOString().split('T')[0];
     const hora = fechaActual.toTimeString().split(' ')[0];
 
-    // 2. Insertar PRIMERO la cabecera en "col_pedidos"
     const { data: pedidoCreado, error: errCabecera } = await supabase
       .from('col_pedidos')
       .insert([
@@ -212,7 +242,6 @@ app.post('/api/pedidos', async (req, res) => {
       });
     }
 
-    // 3. Insertar DESPUÉS las líneas en "col_detalle_pedidos"
     const lineasDetalle = productos.map(item => ({
       codigo_pedido: codigoPedido,
       producto: item.nombre,
@@ -233,7 +262,6 @@ app.post('/api/pedidos', async (req, res) => {
       });
     }
 
-    // 4. Notificación vía Google Apps Script (Síncrono para auditar errores)
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLyIfAfAAqWmME2prGHxKeFJB5QU93KCWwgNepqGeOy8QfK05Iz7zUmuYG3jEkp1Va/exec';
 
     try {
