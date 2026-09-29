@@ -93,14 +93,16 @@
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08); 
       border-radius: 16px;
       margin-bottom: 20px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .brand-container { display: flex; align-items: center; gap: 14px; }
-    .brand-logo { height: 38px; background: white; padding: 4px 10px; border-radius: 8px; display: flex; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .brand-container { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .brand-logo { height: 38px; background: white; padding: 4px 10px; border-radius: 8px; display: flex; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); flex-shrink: 0; }
     .brand-logo img { height: 100%; object-fit: contain; }
-    .brand-title { font-size: 15px; font-weight: 800; letter-spacing: 0.5px; }
+    .brand-title { font-size: 15px; font-weight: 800; letter-spacing: 0.5px; white-space: nowrap; }
 
-    .header-actions { display: flex; gap: 8px; align-items: center; }
-    .btn-cambiar { background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: pointer; }
+    .header-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+    .btn-cambiar { background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: pointer; white-space: nowrap; }
     .btn-cambiar:hover { background: rgba(255, 255, 255, 0.15); border-color: white; }
 
     /* BOTÓN DE CREAR CLIENTE (ACHICADO Y COMPACTO) */
@@ -115,6 +117,7 @@
       cursor: pointer; 
       transition: all 0.2s ease; 
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      white-space: nowrap;
     }
     .btn-crear-cliente:hover { 
       background: #f1f5f9; 
@@ -527,6 +530,27 @@
     }
     .btn-primario:hover { background: var(--primary-dark); }
 
+    /* Ajuste de solapamiento en Tablet y pantallas medianas */
+    @media (max-width: 900px) {
+      header {
+        padding: 10px 16px;
+      }
+      .brand-title {
+        font-size: 13px;
+      }
+      .btn-crear-cliente {
+        padding: 5px 8px;
+        font-size: 10px;
+      }
+      .btn-cambiar {
+        padding: 5px 10px;
+        font-size: 10px;
+      }
+      .header-actions {
+        gap: 6px;
+      }
+    }
+
     @media (max-width: 850px) {
       .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .form-grid { grid-template-columns: 1fr; }
@@ -534,6 +558,7 @@
     }
     @media (max-width: 550px) {
       .kpi-grid { grid-template-columns: 1fr; }
+      .brand-title { font-size: 12px; }
     }
   </style>
 </head>
@@ -684,93 +709,104 @@
     </div>
   </div>
 
-  <!-- MODAL SOLICITUD DE CREACIÓN DE CLIENTE -->
-  <div id="modalCrearCliente" class="modal-overlay">
-    <div class="modal-card">
-      <h2 class="modal-title">Solicitud de Creación de Cliente</h2>
-      <div class="warning-banner" style="background-color: #eff6ff; color: #1e40af; border-color: #bfdbfe;">
-        📩 La información será enviada a cobranza@novovet.cl para su alta.
+<!-- MODAL SOLICITUD DE CREACIÓN DE CLIENTE -->
+<div id="modalCrearCliente" class="modal-overlay">
+  <div class="modal-card">
+    <h2 class="modal-title">Solicitud de Creación de Cliente</h2>
+    <div class="warning-banner" style="background-color: #eff6ff; color: #1e40af; border-color: #bfdbfe;">
+      📩 La información será enviada a cobranza@novovet.cl para su alta.
+    </div>
+
+    <form id="formCrearCliente" onsubmit="enviarSolicitudCliente(event)" class="form-grid">
+      <!-- Rut * -->
+      <div class="form-field">
+        <label>Rut *</label>
+        <input type="text" id="solRut" required placeholder="Ej: 76.123.456-7">
       </div>
 
-      <form id="formCrearCliente" onsubmit="enviarSolicitudCliente(event)" class="form-grid">
-        <div class="form-field">
-          <label>Rut *</label>
-          <input type="text" id="solRut" required placeholder="Ej: 76.123.456-7">
-        </div>
+      <!-- Razon Social (Sin *) -->
+      <div class="form-field">
+        <label>Razon Social</label>
+        <input type="text" id="solRazonSocial" placeholder="Razón social completa">
+      </div>
 
-        <div class="form-field">
-          <label>Razon Social *</label>
-          <input type="text" id="solRazonSocial" required placeholder="Razón social completa">
-        </div>
+      <!-- Nombre de fantasía -->
+      <div class="form-field">
+        <label>Nombre de fantasía</label>
+        <input type="text" id="solNombreFantasia" placeholder="Nombre comercial">
+      </div>
 
-        <div class="form-field">
-          <label>Nombre de fantasía</label>
-          <input type="text" id="solNombreFantasia" placeholder="Nombre comercial">
-        </div>
+      <!-- Cuéntanos como te identificarías * -->
+      <div class="form-field">
+        <label>Cuéntanos como te identificarías *</label>
+        <select id="solTipoIdentificacion" required>
+          <option value="">-- Seleccionar --</option>
+          <option value="Ecommerce">Ecommerce</option>
+          <option value="Farmacia Veterinaria">Farmacia Veterinaria</option>
+          <option value="Médico Veterinario independiente">Médico Veterinario independiente</option>
+          <option value="otros">otros</option>
+          <option value="Peluqueria">Peluqueria</option>
+          <option value="Pet Shop">Pet Shop</option>
+          <option value="Clinica Veterinaria">Clinica Veterinaria</option>
+          <option value="Clinica movil">Clinica movil</option>
+          <option value="Hospital Veterinario">Hospital Veterinario</option>
+          <option value="Farmacia Humana">Farmacia Humana</option>
+          <option value="No asignado">No asignado</option>
+          <option value="Distribuidor">Distribuidor</option>
+          <option value="Fundacion">Fundacion</option>
+          <option value="Tecnico Veterinario">Tecnico Veterinario</option>
+        </select>
+      </div>
 
-        <div class="form-field">
-          <label>Cuéntanos como te identificarías *</label>
-          <select id="solTipoIdentificacion" required>
-            <option value="">-- Seleccionar --</option>
-            <option value="Ecommerce">Ecommerce</option>
-            <option value="Farmacia Veterinaria">Farmacia Veterinaria</option>
-            <option value="Médico Veterinario independiente">Médico Veterinario independiente</option>
-            <option value="otros">otros</option>
-            <option value="Peluqueria">Peluqueria</option>
-            <option value="Pet Shop">Pet Shop</option>
-            <option value="Clinica Veterinaria">Clinica Veterinaria</option>
-            <option value="Clinica movil">Clinica movil</option>
-            <option value="Hospital Veterinario">Hospital Veterinario</option>
-            <option value="Farmacia Humana">Farmacia Humana</option>
-            <option value="No asignado">No asignado</option>
-            <option value="Distribuidor">Distribuidor</option>
-            <option value="Fundacion">Fundacion</option>
-            <option value="Tecnico Veterinario">Tecnico Veterinario</option>
-          </select>
-        </div>
+      <!-- Giro (Sin *) -->
+      <div class="form-field">
+        <label>Giro</label>
+        <input type="text" id="solGiro" placeholder="Giro registrado en SII">
+      </div>
 
-        <div class="form-field">
-          <label>Giro *</label>
-          <input type="text" id="solGiro" required placeholder="Giro registrado en SII">
-        </div>
+      <!-- Dirección * -->
+      <div class="form-field">
+        <label>Dirección *</label>
+        <input type="text" id="solDireccion" required placeholder="Calle, número, oficina/depto">
+      </div>
 
-        <div class="form-field">
-          <label>Dirección *</label>
-          <input type="text" id="solDireccion" required placeholder="Calle, número, oficina/depto">
-        </div>
+      <!-- Comuna * -->
+      <div class="form-field">
+        <label>Comuna *</label>
+        <input type="text" id="solComuna" required placeholder="Comuna">
+      </div>
 
-        <div class="form-field">
-          <label>Comuna *</label>
-          <input type="text" id="solComuna" required placeholder="Comuna">
-        </div>
+      <!-- Teléfono * -->
+      <div class="form-field">
+        <label>Teléfono *</label>
+        <input type="tel" id="solTelefono" required placeholder="+56 9 1234 5678">
+      </div>
 
-        <div class="form-field">
-          <label>Teléfono *</label>
-          <input type="tel" id="solTelefono" required placeholder="+56 9 1234 5678">
-        </div>
+      <!-- Encargado de cobranza * (AQUÍ SE AGREGA Y ES REQUIRED) -->
+      <div class="form-field">
+        <label>Encargado de cobranza *</label>
+        <input type="text" id="solEncargadoCobranza" required placeholder="Nombre de contacto">
+      </div>
 
-        <div class="form-field">
-          <label>Encargado de cobranza</label>
-          <input type="text" id="solEncargadoCobranza" placeholder="Nombre de contacto">
-        </div>
+      <!-- Dirección de correo electrónico * -->
+      <div class="form-field">
+        <label>Dirección de correo electrónico *</label>
+        <input type="email" id="solCorreo" required placeholder="contacto@empresa.cl">
+      </div>
 
-        <div class="form-field">
-          <label>Dirección de correo electrónico *</label>
-          <input type="email" id="solCorreo" required placeholder="contacto@empresa.cl">
-        </div>
+      <!-- Vendedor * (AQUÍ SE AGREGA Y ES REQUIRED) -->
+      <div class="form-field full-width">
+        <label>Vendedor *</label>
+        <input type="text" id="solVendedor" required placeholder="Nombre del ejecutivo comercial">
+      </div>
 
-        <div class="form-field full-width">
-          <label>Vendedor</label>
-          <input type="text" id="solVendedor" placeholder="Nombre del ejecutivo comercial">
-        </div>
-
-        <div class="form-field full-width modal-actions">
-          <button type="button" onclick="cerrarModalCrearCliente()" class="btn-secundario">Cancelar</button>
-          <button type="submit" id="btnEnviarCliente" class="btn-primario">Enviar Solicitud</button>
-        </div>
-      </form>
-    </div>
+      <div class="form-field full-width modal-actions">
+        <button type="button" onclick="cerrarModalCrearCliente()" class="btn-secundario">Cancelar</button>
+        <button type="submit" id="btnEnviarCliente" class="btn-primario">Enviar Solicitud</button>
+      </div>
+    </form>
   </div>
+</div>
 
   <!-- Lógica en JS para activar la insignia de Alerta de Crédito -->
   <script>
