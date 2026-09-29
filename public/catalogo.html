@@ -26,51 +26,51 @@
       --accent-orange: #f97316;
     }
 
-/* Contenedor horizontal en la celda del modal */
-.modal-qty-container {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 6px !important;
-  background-color: #f8fafc;
-  padding: 4px 8px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  white-space: nowrap !important;
-}
+    /* Contenedor horizontal en la celda del modal */
+    .modal-qty-container {
+      display: inline-flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
+      background-color: #f8fafc;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      white-space: nowrap !important;
+    }
 
-.modal-qty-val {
-  font-size: 14px;
-  font-weight: 800;
-  min-width: 24px;
-  text-align: center;
-  color: var(--text-main);
-  display: inline-block;
-}
+    .modal-qty-val {
+      font-size: 14px;
+      font-weight: 800;
+      min-width: 24px;
+      text-align: center;
+      color: var(--text-main);
+      display: inline-block;
+    }
 
-.btn-mini { 
-  background: #ffffff !important; 
-  border: 1px solid var(--border-color) !important; 
-  width: 28px !important; 
-  height: 28px !important; 
-  border-radius: 6px !important; 
-  font-weight: 800 !important; 
-  font-size: 14px !important;
-  cursor: pointer; 
-  color: var(--text-main) !important; 
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
+    .btn-mini { 
+      background: #ffffff !important; 
+      border: 1px solid var(--border-color) !important; 
+      width: 28px !important; 
+      height: 28px !important; 
+      border-radius: 6px !important; 
+      font-weight: 800 !important; 
+      font-size: 14px !important;
+      cursor: pointer; 
+      color: var(--text-main) !important; 
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
 
-.btn-mini:hover {
-  background: var(--primary) !important;
-  color: #ffffff !important;
-  border-color: var(--primary) !important;
-}
+    .btn-mini:hover {
+      background: var(--primary) !important;
+      color: #ffffff !important;
+      border-color: var(--primary) !important;
+    }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
     body { background-color: var(--bg-body); color: var(--text-main); -webkit-font-smoothing: antialiased; }
@@ -99,18 +99,19 @@
     .brand-logo img { height: 100%; object-fit: contain; }
     .brand-title { font-size: 15px; font-weight: 800; letter-spacing: 0.5px; }
 
-    .header-actions { display: flex; gap: 10px; align-items: center; }
-    .btn-cambiar { background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: pointer; }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .btn-cambiar { background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: pointer; }
     .btn-cambiar:hover { background: rgba(255, 255, 255, 0.15); border-color: white; }
 
+    /* BOTÓN DE CREAR CLIENTE (ACHICADO Y COMPACTO) */
     .btn-crear-cliente { 
       background: #ffffff; 
       color: var(--primary-dark); 
       border: 1px solid #ffffff; 
-      padding: 6px 16px; 
-      border-radius: 8px; 
-      font-size: 12px; 
-      font-weight: 800; 
+      padding: 5px 10px; 
+      border-radius: 6px; 
+      font-size: 11px; 
+      font-weight: 700; 
       cursor: pointer; 
       transition: all 0.2s ease; 
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -317,7 +318,7 @@
     .current-price { font-size: 18px; font-weight: 800; color: var(--text-main); }
     .promo-unit-price { font-size: 12px; font-weight: 700; color: var(--primary); margin-top: 1px; }
 
-    /* --- CORRECCIÓN DEFINITIVA CONTROL DE CANTIDAD (EN FILA Y ESPACIADO) --- */
+    /* --- CONTROL DE CANTIDAD EN FILA --- */
     .counter-box { 
       display: inline-flex; 
       align-items: center; 
@@ -383,13 +384,13 @@
     
     .warning-banner { background-color: #fffbe3; color: #b45309; border: 1px solid #fef3c7; border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 600; text-align: center; margin-bottom: 20px; }
 
-/* Tabla de Pedido (Modal) */
+    /* Tabla de Pedido (Modal) */
     .order-table { 
       width: 100%; 
       border-collapse: collapse; 
       margin-bottom: 20px; 
       font-size: 13px; 
-      table-layout: fixed; /* Evita que el texto largo aplaste otras columnas */
+      table-layout: fixed;
     }
     .order-table th { background: #f8fafc; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border-color); }
     .order-table td { padding: 12px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
@@ -443,27 +444,6 @@
       min-width: 24px;
       text-align: center;
       color: var(--text-main);
-    }
-    .btn-mini { 
-      background: white; 
-      border: 1px solid var(--border-color); 
-      width: 28px; 
-      height: 28px; 
-      border-radius: 6px; 
-      font-weight: 800; 
-      font-size: 14px;
-      cursor: pointer; 
-      color: var(--text-main); 
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s ease;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .btn-mini:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
     }
     .btn-trash { background: var(--danger-bg); color: var(--danger); border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
 
@@ -568,14 +548,14 @@
         <div class="brand-title">COLCHAGUA – NOVOVET</div>
       </div>
       <div class="header-actions">
-        <!-- ➕ BOTÓN DE CREAR CLIENTE AGREGADO AQUÍ -->
+        <!-- ➕ BOTÓN DE CREAR CLIENTE (TAMAÑO COMPACTO) -->
         <button onclick="abrirModalCrearCliente()" class="btn-crear-cliente">➕ Crear Cliente Nuevo</button>
         <a href="/" class="btn-cambiar">CAMBIAR RUT</a>
       </div>
     </header>
 
     <div class="client-card">
-      <!-- ⚠️ ALERTA DE CRÉDITO AGREGADA AL LADO DEL NOMBRE DEL CLIENTE -->
+      <!-- ALERTA DE CRÉDITO AL LADO DEL NOMBRE -->
       <div class="client-title-container">
         <h1 id="cliNombre" class="client-name">Cargando...</h1>
         <div id="alertaCredito" style="display: none;"></div>
@@ -590,7 +570,7 @@
           <div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;">Dcto. Cliente: <strong id="cliDcto">0%</strong> (Lista <span id="cliLista">1</span>)</div>
         </div>
 
-      <!-- 2. Estado de Cuenta -->
+        <!-- 2. Estado de Cuenta -->
         <div class="kpi-box">
           <div class="kpi-title">Estado de Cuenta</div>
           <div class="kpi-value">
@@ -674,13 +654,28 @@
         <div class="summary-row total"><span>Total Pedido:</span> <span id="sumTotal">$0</span></div>
       </div>
 
+      <!-- SECCIÓN DE CORREO ACTUALIZADA -->
       <div class="form-group">
-        <div>
-          <input type="checkbox" id="checkDireccion" checked>
-          <label for="checkDireccion" style="font-weight: 600;">Enviar a la dirección registrada del cliente</label>
-          <div id="direccionTexto" style="color: var(--text-muted); margin-left: 20px; font-size: 12px; margin-top: 2px;">📍 Dirección registrada</div>
+        <!-- Checkbox + Correo Registrado -->
+        <div style="margin-bottom: 10px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer;">
+            <input type="checkbox" id="checkCorreoCliente" checked onchange="toggleCorreoAlternativo()">
+            <span>Enviar copia del pedido al correo registrado</span>
+          </label>
+          <div id="correoClienteTexto" style="color: var(--primary); margin-left: 24px; font-size: 13px; font-weight: 700; margin-top: 4px;">
+            ✉️ <span id="lblCorreoRegistrado">cargando correo...</span>
+          </div>
         </div>
 
+        <!-- Campo oculto para correo alternativo -->
+        <div id="boxCorreoAlternativo" style="display: none; margin-left: 24px; margin-bottom: 12px;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">
+            Ingresar correo electrónico alternativo:
+          </label>
+          <input type="email" id="txtCorreoAlternativo" class="form-textarea" style="margin-top:0;" placeholder="ejemplo@cliente.cl">
+        </div>
+
+        <!-- Observaciones -->
         <textarea id="comentarioPedido" class="form-textarea" rows="2" placeholder="Observaciones o notas del vendedor (Horarios, condiciones acordadas, etc.)"></textarea>
       </div>
 
@@ -697,11 +692,11 @@
         📩 La información será enviada a cobranza@novovet.cl para su alta.
       </div>
 
-  <form id="formCrearCliente" onsubmit="enviarSolicitudCliente(event)" class="form-grid">
-    <div class="form-field">
-      <label>Rut *</label>
-      <input type="text" id="solRut" required placeholder="Ej: 76.123.456-7">
-    </div>
+      <form id="formCrearCliente" onsubmit="enviarSolicitudCliente(event)" class="form-grid">
+        <div class="form-field">
+          <label>Rut *</label>
+          <input type="text" id="solRut" required placeholder="Ej: 76.123.456-7">
+        </div>
 
         <div class="form-field">
           <label>Razon Social *</label>
@@ -806,12 +801,60 @@
       if (el) el.innerText = (valor !== undefined && valor !== null && valor !== '') ? valor : '-';
     }
 
-  async function init() {
+// Variable global para almacenar el correo recuperado de Supabase
+let emailClienteRegistrado = ''; 
+
+/**
+ * Llama a esta función inmediatamente después de obtener los datos del cliente desde Supabase
+ * @param {Object} clienteData - Objeto del cliente obtenido de Supabase (ej: data[0])
+ */
+function cargarDatosClienteModal(datosCliente) {
+  if (!datosCliente) return;
+
+  // Asigna el correo desde el objeto cliente que retorna el servidor
+  emailClienteRegistrado = datosCliente.email || 'Sin correo registrado';
+  
+  const lblCorreo = document.getElementById('lblCorreoRegistrado');
+  if (lblCorreo) {
+    lblCorreo.innerText = emailClienteRegistrado;
+  }
+}
+
+/**
+ * Controla la visibilidad del campo de correo alternativo
+ */
+function toggleCorreoAlternativo() {
+  const check = document.getElementById('checkCorreoCliente');
+  const boxAlt = document.getElementById('boxCorreoAlternativo');
+  const txtAlt = document.getElementById('txtCorreoAlternativo');
+
+  if (check && check.checked) {
+    if (boxAlt) boxAlt.style.display = 'none';
+    if (txtAlt) txtAlt.value = '';
+  } else {
+    if (boxAlt) boxAlt.style.display = 'block';
+    if (txtAlt) txtAlt.focus();
+  }
+}
+
+/**
+ * Devuelve la dirección de correo a la que se debe enviar la confirmación
+ * @returns {string}
+ */
+function obtenerCorreoEnvio() {
+  const check = document.getElementById('checkCorreoCliente');
+  const txtAlt = document.getElementById('txtCorreoAlternativo');
+
+  if (check && check.checked) {
+    return emailClienteRegistrado;
+  } else {
+    return txtAlt ? txtAlt.value.trim() : '';
+  }
+}
+ async function init() {
   try {
-    // Busca el RUT ingresado previamente
     const rut = localStorage.getItem('clienteRut');
 
-    // Si no hay RUT guardado, redirige al usuario a la pantalla de búsqueda/login
     if (!rut) {
       window.location.href = '/index.html'; 
       return;
@@ -823,6 +866,9 @@
     if (data.cliente) {
       clienteData = data.cliente;
       
+      // 👈 AGREGAR AQUÍ: Actualiza la variable global y el correo en la interfaz del modal
+      cargarDatosClienteModal(clienteData);
+      
       setTexto('cliNombre', clienteData.nombre || 'Cliente General');
       setTexto('cliSub', `RUT: ${clienteData.rut || ''} • 📍 ${clienteData.direccion || ''}`);
       setTexto('cliCondicion', clienteData.condicionPago || clienteData.condicion || 'contado');
@@ -832,10 +878,8 @@
       setTexto('cliVencido', `$${Number(clienteData.montoVencido || 0).toLocaleString('es-CL')}`);
       setTexto('cliVigente', `$${Number(clienteData.montoVigente || 0).toLocaleString('es-CL')}`);
       
-      // Muestra el monto correspondiente a Cheques
       setTexto('cliCheques', `$${Number(clienteData.montoCheques || clienteData.cheques || 0).toLocaleString('es-CL')}`);
 
-      // 👈 AQUÍ DISPARAS LA ALERTA DE CRÉDITO
       renderizarAlertaCredito(clienteData);
 
       setTexto('ejeNombre', clienteData.vendedor || 'Novovet');
@@ -1122,114 +1166,133 @@
       if (modal) modal.style.display = 'none';
     }
 
-    async function enviarPedidoFinal() {
-      const itemsList = Object.values(carrito);
-      if (itemsList.length === 0) {
-        alert("El carrito está vacío. Agrega productos antes de enviar.");
-        return;
-      }
+async function enviarPedidoFinal() {
+  const itemsList = Object.values(carrito);
+  
+  if (itemsList.length === 0) {
+    alert("El carrito está vacío. Agrega productos antes de enviar.");
+    return;
+  }
 
-      const comentario = document.getElementById('comentarioPedido')?.value || '';
-      const productosPayload = [];
+  // 1. Obtener de forma DINÁMICA el correo seleccionado en el modal (Registrado o Alternativo)
+  const correoDestino = typeof obtenerCorreoEnvio === 'function' 
+    ? obtenerCorreoEnvio() 
+    : (clienteData.email || '');
 
-      itemsList.forEach(item => {
-        const p = item.producto;
-        const precioUnitario = Number(p.precioFinal || p.precioBase || 0);
+  // Validación de seguridad por si el usuario borró el correo alternativo
+  if (!correoDestino || correoDestino === 'Sin correo registrado') {
+    alert("Por favor ingresa o confirma una dirección de correo válida para enviar el pedido.");
+    return;
+  }
 
-        let textoPromo = 'Sin promo';
-        if (p.tipoPromo === 'PORCENTAJE' || p.descuentoPorcentaje > 0) {
-          textoPromo = `Descuento ${p.descuentoPorcentaje}%`;
-        } else if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
-          const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
-          const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
-          textoPromo = `Promo ${f1}+${f2}`;
+  const comentarioInput = document.getElementById('comentarioPedido');
+  const comentario = comentarioInput ? comentarioInput.value.trim() : '';
+
+  const productosPayload = [];
+  let totalNetoGlobal = 0;
+
+  // 2. Procesar productos y promociones
+  itemsList.forEach(item => {
+    const p = item.producto;
+    const precioUnitario = Math.round(Number(p.precioFinal || p.precioBase || 0));
+    const cantidad = Number(item.cantidad) || 0;
+
+    let textoPromo = 'Sin promo';
+    if (p.tipoPromo === 'PORCENTAJE' || p.descuentoPorcentaje > 0) {
+      textoPromo = `Descuento ${p.descuentoPorcentaje}%`;
+    } else if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+      const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
+      const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
+      textoPromo = `Promo ${f1}+${f2}`;
+    }
+
+    // Fila de unidades pagadas
+    productosPayload.push({
+      codigo: p.codigo,
+      nombre: p.nombre,
+      cantidad: cantidad,
+      precio: precioUnitario,
+      promo: textoPromo
+    });
+
+    totalNetoGlobal += precioUnitario * cantidad;
+
+    // Fila de unidades de regalo
+    if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
+      const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
+      const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
+
+      if (f1 > 0 && f2 > 0 && cantidad >= f1) {
+        const tramos = Math.floor(cantidad / f1);
+        const gratisTotal = tramos * f2;
+
+        if (gratisTotal > 0) {
+          productosPayload.push({
+            codigo: `X${p.codigo}`,
+            nombre: `${p.nombre} (REGALO)`,
+            cantidad: gratisTotal,
+            precio: 1,
+            promo: `🎁 Promo ${f1}+${f2} Gratis`
+          });
+
+          totalNetoGlobal += gratisTotal * 1;
         }
-
-        // 1. Fila de unidades pagadas
-        productosPayload.push({
-          codigo: p.codigo,
-          nombre: p.nombre,
-          cantidad: Number(item.cantidad),
-          precio: Math.round(precioUnitario),
-          promo: textoPromo
-        });
-
-        // 2. Fila de unidades gratis (Agrega 'X' al código para carga ERP)
-        if (p.tipoPromo === 'VOLUMEN' && p.reglaVolumen) {
-          const f1 = p.reglaVolumen.factor1 || p.reglaVolumen.x || 0;
-          const f2 = p.reglaVolumen.factor2 || p.reglaVolumen.y || 0;
-
-          if (f1 > 0 && f2 > 0 && item.cantidad >= f1) {
-            const tramos = Math.floor(item.cantidad / f1);
-            const gratisTotal = tramos * f2;
-
-            if (gratisTotal > 0) {
-              productosPayload.push({
-                codigo: `X${p.codigo}`,
-                nombre: `${p.nombre} (REGALO)`,
-                cantidad: gratisTotal,
-                precio: 1,
-                promo: `🎁 Promo ${f1}+${f2} Gratis`
-              });
-            }
-          }
-        }
-      });
-
-      let totalNetoGlobal = 0;
-      itemsList.forEach(i => {
-        totalNetoGlobal += Number(i.producto.precioFinal || i.producto.precioBase || 0) * i.cantidad;
-      });
-
-      const dctoPct = Number(clienteData.descuentoCliente || clienteData.descuento || 0);
-      const montoDcto = totalNetoGlobal * (dctoPct / 100);
-      const netoConDcto = totalNetoGlobal - montoDcto;
-      const iva = netoConDcto * 0.19;
-      const totalFinal = netoConDcto + iva;
-
-      const payload = {
-        cliente: {
-          rut: clienteData.rut,
-          nombre: clienteData.nombre,
-          direccion: clienteData.direccion,
-          correo: clienteData.vendedorCorreo || 'fvaldebenito@novovet.cl',
-          vendedor: clienteData.vendedor || 'Novovet',
-          vendedorCorreo: clienteData.vendedorCorreo || ''
-        },
-        productos: productosPayload,
-        resumen: {
-          subtotal: Math.round(totalNetoGlobal),
-          descuento: Math.round(montoDcto),
-          neto: Math.round(netoConDcto),
-          iva: Math.round(iva),
-          total: Math.round(totalFinal)
-        },
-        comentario
-      };
-
-      try {
-        const res = await fetch('/api/pedidos', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const resp = await res.json();
-
-        if (res.ok && resp.exito) {
-          alert(`✅ Pedido #${resp.codigoPedido} registrado e ingresado con éxito.`);
-          carrito = {};
-          actualizarTotalesCarrito();
-          cerrarCarrito();
-          window.location.reload();
-        } else {
-          alert('Error al registrar pedido: ' + (resp.mensaje || ''));
-        }
-      } catch (err) {
-        console.error('Error al conectar con el servidor:', err);
-        alert('Error conectando con el servidor.');
       }
     }
+  });
+
+  // 3. Cálculos dinámicos
+  const dctoPct = Number(clienteData.descuentoCliente || clienteData.descuento || 0);
+  const montoDcto = totalNetoGlobal * (dctoPct / 100);
+  const netoConDcto = totalNetoGlobal - montoDcto;
+  const iva = netoConDcto * 0.19;
+  const totalFinal = netoConDcto + iva;
+
+  // 4. Payload 100% dinámico enviado al Servidor / Google Apps Script
+  const payload = {
+    cliente: {
+      rut: clienteData.rut || '',
+      nombre: clienteData.nombre || '',
+      direccion: clienteData.direccion || '',
+      correo: correoDestino, // <-- AHORA TOMA EL MAIL DEL INPUT ALTERNATIVO O REGISTRADO
+      vendedor: clienteData.vendedor || '',
+      vendedorCorreo: clienteData.vendedorCorreo || ''
+    },
+    productos: productosPayload,
+    resumen: {
+      subtotal: Math.round(totalNetoGlobal),
+      descuento: Math.round(montoDcto),
+      neto: Math.round(netoConDcto),
+      iva: Math.round(iva),
+      total: Math.round(totalFinal)
+    },
+    comentario
+  };
+
+  try {
+    const res = await fetch('/api/pedidos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const resp = await res.json();
+
+    if (res.ok && resp.exito) {
+      alert(`✅ Pedido #${resp.codigoPedido} registrado e ingresado con éxito.`);
+      carrito = {};
+      if (typeof actualizarTotalesCarrito === 'function') actualizarTotalesCarrito();
+      if (typeof cerrarCarrito === 'function') cerrarCarrito();
+      window.location.reload();
+    } else {
+      alert('Error al registrar pedido: ' + (resp.mensaje || ''));
+    }
+  } catch (err) {
+    console.error('Error al conectar con el servidor:', err);
+    alert('Error conectando con el servidor.');
+  }
+}
+
 
     function alCambiarBusqueda() {
       const input = document.getElementById('searchInput');

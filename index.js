@@ -23,10 +23,10 @@ app.get('/api/catalogo/:rut', async (req, res) => {
   try {
     const rutLimpio = String(rut).trim();
 
-    // 1. Obtener cliente desde colcha_clientes
+    // 1. Obtener cliente desde colcha_clientes (SE AGREGA 'email' A LA CONSULTA)
     const { data: cliente, error: errCliente } = await supabase
       .from('colcha_clientes')
-      .select('rut, nombre, direccion, c_pago, linea_de_credito, descuento, lista, vendedor_1')
+      .select('rut, nombre, email, direccion, c_pago, linea_de_credito, descuento, lista, vendedor_1')
       .eq('rut', rutLimpio)
       .maybeSingle();
 
@@ -57,18 +57,21 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       });
     }
 
-    // 2.1 Obtener cheques desde col_cheques (LEYENDO ÚNICAMENTE LA COLUMNA SALDO)
+    // 2.1 Obtener cheques desde col_cheques
     const { data: cheques, error: errCheques } = await supabase
       .from('col_cheques')
       .select('saldo, cliente')
-      .ilike('cliente', `%${rutLimpio}%`);
+      .or(`cliente.eq.${rutLimpio},cliente.ilike.%${rutLimpio}%`);
 
     let montoCheques = 0;
 
     if (!errCheques && cheques && cheques.length > 0) {
       cheques.forEach(ch => {
-        montoCheques += Number(ch.saldo || 0);
+        const valorSaldo = Number(ch.saldo || 0);
+        montoCheques += valorSaldo;
       });
+    } else if (errCheques) {
+      console.error("⚠️ Error consulta cheques:", errCheques);
     }
 
     // 3. Buscar información del vendedor en colcha_info_vendedores
@@ -199,22 +202,33 @@ app.get('/api/catalogo/:rut', async (req, res) => {
       };
     });
 
-    // 6. Respuesta JSON
+    // 6. Cálculo de uso de crédito
+    const limiteCreditoNum = Number(cliente.linea_de_credito || 0);
+    const deudaTotalUso = montoVencido + montoVigente + montoCheques;
+    const porcentajeUso = limiteCreditoNum > 0 ? (deudaTotalUso / limiteCreditoNum) * 100 : 0;
+    const creditoExcedido = deudaTotalUso > limiteCreditoNum;
+    const creditoCasiAlLimite = !creditoExcedido && porcentajeUso >= 80;
+
+    // 7. Respuesta JSON (SE AGREGA 'email' AL OBJETO CLIENTE)
     return res.json({
       exito: true,
       cliente: {
         rut: cliente.rut,
         nombre: cliente.nombre,
+        email: cliente.email || '', // <-- AHORA SÍ ENVIAMOS EL EMAIL
         direccion: cliente.direccion,
         condicionPago: cliente.c_pago,
         condicion: cliente.c_pago,
-        lineaCredito: cliente.linea_de_credito,
-        credito: cliente.linea_de_credito,
+        lineaCredito: limiteCreditoNum,
+        credito: limiteCreditoNum,
         descuentoCliente: cliente.descuento,
         descuento: cliente.descuento,
         montoVencido,
         montoVigente,
         montoCheques,
+        porcentajeUso: Math.round(porcentajeUso),
+        creditoExcedido,
+        creditoCasiAlLimite,
         vendedor: vendedorNombre,
         vendedorCorreo: vendedorCorreo,
         vendedorTelefono: vendedorTelefono,
