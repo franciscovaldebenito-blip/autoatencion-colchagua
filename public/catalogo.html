@@ -99,9 +99,26 @@
     .brand-logo img { height: 100%; object-fit: contain; }
     .brand-title { font-size: 15px; font-weight: 800; letter-spacing: 0.5px; }
 
-    .header-actions { display: flex; gap: 12px; align-items: center; }
-    .btn-cambiar { background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-cambiar { background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: pointer; }
     .btn-cambiar:hover { background: rgba(255, 255, 255, 0.15); border-color: white; }
+
+    .btn-crear-cliente { 
+      background: #ffffff; 
+      color: var(--primary-dark); 
+      border: 1px solid #ffffff; 
+      padding: 6px 16px; 
+      border-radius: 8px; 
+      font-size: 12px; 
+      font-weight: 800; 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn-crear-cliente:hover { 
+      background: #f1f5f9; 
+      transform: translateY(-1px);
+    }
 
     /* Card Cliente Dashboard */
     .client-card { 
@@ -113,8 +130,37 @@
       margin-bottom: 24px; 
     }
     
-    .client-name { font-size: 20px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; margin-bottom: 2px; }
+    .client-title-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 2px;
+    }
+    .client-name { font-size: 20px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
     .client-sub { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-bottom: 14px; }
+
+    /* Badges de Alerta de Crédito */
+    .credit-alert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+    .credit-alert-warning {
+      background-color: #fef3c7;
+      color: #d97706;
+      border: 1px solid #fcd34d;
+    }
+    .credit-alert-danger {
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+    }
 
     /* Contenedor Horizontal para las 4 Tarjetas */
     .kpi-grid { 
@@ -343,7 +389,7 @@
       border-collapse: collapse; 
       margin-bottom: 20px; 
       font-size: 13px; 
-      table-layout: fixed; /* 👈 Evita que el texto largo aplaste otras columnas */
+      table-layout: fixed; /* Evita que el texto largo aplaste otras columnas */
     }
     .order-table th { background: #f8fafc; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border-color); }
     .order-table td { padding: 12px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
@@ -352,7 +398,7 @@
 
     /* Asignación rígida de anchos por columna */
     .order-table th:nth-child(1), .order-table td:nth-child(1) { width: auto; word-break: break-word; }
-    .order-table th:nth-child(2), .order-table td:nth-child(2) { width: 130px !important; } /* 👈 Reserva espacio para los botones */
+    .order-table th:nth-child(2), .order-table td:nth-child(2) { width: 130px !important; }
     .order-table th:nth-child(3), .order-table td:nth-child(3) { width: 95px !important; }
     .order-table th:nth-child(4), .order-table td:nth-child(4) { width: 40px !important; }
 
@@ -435,8 +481,76 @@
     .btn-submit:hover { background: var(--primary-dark); }
     .btn-close { width: 100%; background: transparent; color: var(--text-muted); border: none; padding: 10px; margin-top: 4px; font-size: 13px; cursor: pointer; text-align: center; font-weight: 600; }
 
+    /* ESTILOS FORMULARIO CREAR CLIENTE */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+      margin-top: 15px;
+      text-align: left;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .form-field.full-width {
+      grid-column: span 2;
+    }
+    .form-field label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .form-field input, .form-field select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      background: white;
+      transition: all 0.2s;
+    }
+    .form-field input:focus, .form-field select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+    }
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-secundario {
+      flex: 1;
+      background: #e2e8f0;
+      color: var(--text-main);
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-secundario:hover { background: #cbd5e1; }
+    .btn-primario {
+      flex: 2;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+    }
+    .btn-primario:hover { background: var(--primary-dark); }
+
     @media (max-width: 850px) {
       .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-field.full-width { grid-column: span 1; }
     }
     @media (max-width: 550px) {
       .kpi-grid { grid-template-columns: 1fr; }
@@ -454,12 +568,18 @@
         <div class="brand-title">COLCHAGUA – NOVOVET</div>
       </div>
       <div class="header-actions">
+        <!-- ➕ BOTÓN DE CREAR CLIENTE AGREGADO AQUÍ -->
+        <button onclick="abrirModalCrearCliente()" class="btn-crear-cliente">➕ Crear Cliente Nuevo</button>
         <a href="/" class="btn-cambiar">CAMBIAR RUT</a>
       </div>
     </header>
 
     <div class="client-card">
-      <h1 id="cliNombre" class="client-name">Cargando...</h1>
+      <!-- ⚠️ ALERTA DE CRÉDITO AGREGADA AL LADO DEL NOMBRE DEL CLIENTE -->
+      <div class="client-title-container">
+        <h1 id="cliNombre" class="client-name">Cargando...</h1>
+        <div id="alertaCredito" style="display: none;"></div>
+      </div>
       <div id="cliSub" class="client-sub">RUT: -</div>
 
       <div class="kpi-grid">
@@ -476,7 +596,6 @@
           <div class="kpi-value">
             Vencido: <span id="cliVencido" class="status-badge-vencido">$0</span><br>
             <span style="display:inline-block; margin-top:3px;">Vigente: <span id="cliVigente" class="status-badge-vigente">$0</span></span><br>
-            <!-- 👈 Línea agregada para Cheques -->
             <span style="display:inline-block; margin-top:3px;">Cheques: <span id="cliCheques" style="color: #2563eb; font-weight: 700;">$0</span></span>
           </div>
         </div>
@@ -570,7 +689,114 @@
     </div>
   </div>
 
-<script>
+  <!-- MODAL SOLICITUD DE CREACIÓN DE CLIENTE -->
+  <div id="modalCrearCliente" class="modal-overlay">
+    <div class="modal-card">
+      <h2 class="modal-title">Solicitud de Creación de Cliente</h2>
+      <div class="warning-banner" style="background-color: #eff6ff; color: #1e40af; border-color: #bfdbfe;">
+        📩 La información será enviada a cobranza@novovet.cl para su alta.
+      </div>
+
+  <form id="formCrearCliente" onsubmit="enviarSolicitudCliente(event)" class="form-grid">
+    <div class="form-field">
+      <label>Rut *</label>
+      <input type="text" id="solRut" required placeholder="Ej: 76.123.456-7">
+    </div>
+
+        <div class="form-field">
+          <label>Razon Social *</label>
+          <input type="text" id="solRazonSocial" required placeholder="Razón social completa">
+        </div>
+
+        <div class="form-field">
+          <label>Nombre de fantasía</label>
+          <input type="text" id="solNombreFantasia" placeholder="Nombre comercial">
+        </div>
+
+        <div class="form-field">
+          <label>Cuéntanos como te identificarías *</label>
+          <select id="solTipoIdentificacion" required>
+            <option value="">-- Seleccionar --</option>
+            <option value="Ecommerce">Ecommerce</option>
+            <option value="Farmacia Veterinaria">Farmacia Veterinaria</option>
+            <option value="Médico Veterinario independiente">Médico Veterinario independiente</option>
+            <option value="otros">otros</option>
+            <option value="Peluqueria">Peluqueria</option>
+            <option value="Pet Shop">Pet Shop</option>
+            <option value="Clinica Veterinaria">Clinica Veterinaria</option>
+            <option value="Clinica movil">Clinica movil</option>
+            <option value="Hospital Veterinario">Hospital Veterinario</option>
+            <option value="Farmacia Humana">Farmacia Humana</option>
+            <option value="No asignado">No asignado</option>
+            <option value="Distribuidor">Distribuidor</option>
+            <option value="Fundacion">Fundacion</option>
+            <option value="Tecnico Veterinario">Tecnico Veterinario</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Giro *</label>
+          <input type="text" id="solGiro" required placeholder="Giro registrado en SII">
+        </div>
+
+        <div class="form-field">
+          <label>Dirección *</label>
+          <input type="text" id="solDireccion" required placeholder="Calle, número, oficina/depto">
+        </div>
+
+        <div class="form-field">
+          <label>Comuna *</label>
+          <input type="text" id="solComuna" required placeholder="Comuna">
+        </div>
+
+        <div class="form-field">
+          <label>Teléfono *</label>
+          <input type="tel" id="solTelefono" required placeholder="+56 9 1234 5678">
+        </div>
+
+        <div class="form-field">
+          <label>Encargado de cobranza</label>
+          <input type="text" id="solEncargadoCobranza" placeholder="Nombre de contacto">
+        </div>
+
+        <div class="form-field">
+          <label>Dirección de correo electrónico *</label>
+          <input type="email" id="solCorreo" required placeholder="contacto@empresa.cl">
+        </div>
+
+        <div class="form-field full-width">
+          <label>Vendedor</label>
+          <input type="text" id="solVendedor" placeholder="Nombre del ejecutivo comercial">
+        </div>
+
+        <div class="form-field full-width modal-actions">
+          <button type="button" onclick="cerrarModalCrearCliente()" class="btn-secundario">Cancelar</button>
+          <button type="submit" id="btnEnviarCliente" class="btn-primario">Enviar Solicitud</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lógica en JS para activar la insignia de Alerta de Crédito -->
+  <script>
+    function actualizarAlertaCredito(cliente) {
+      const el = document.getElementById('alertaCredito');
+      if (!el || !cliente) return;
+
+      if (cliente.creditoExcedido) {
+        el.style.display = 'inline-block';
+        el.className = 'credit-alert-badge credit-alert-danger';
+        el.innerHTML = '⚠️ LÍNEA DE CRÉDITO EXCEDIDA';
+      } else if (cliente.creditoCasiAlLimite) {
+        el.style.display = 'inline-block';
+        el.className = 'credit-alert-badge credit-alert-warning';
+        el.innerHTML = `⚠️ LÍNEA DE CRÉDITO AL LÍMITE (${Math.round(cliente.porcentajeUso)}%)`;
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+
     let todosLosProductos = [];
     let carrito = {};
     let clienteData = {};
@@ -580,7 +806,7 @@
       if (el) el.innerText = (valor !== undefined && valor !== null && valor !== '') ? valor : '-';
     }
 
-   async function init() {
+  async function init() {
   try {
     // Busca el RUT ingresado previamente
     const rut = localStorage.getItem('clienteRut');
@@ -608,6 +834,9 @@
       
       // Muestra el monto correspondiente a Cheques
       setTexto('cliCheques', `$${Number(clienteData.montoCheques || clienteData.cheques || 0).toLocaleString('es-CL')}`);
+
+      // 👈 AQUÍ DISPARAS LA ALERTA DE CRÉDITO
+      renderizarAlertaCredito(clienteData);
 
       setTexto('ejeNombre', clienteData.vendedor || 'Novovet');
       setTexto('ejeCorreo', clienteData.vendedorCorreo || '-');
@@ -1016,6 +1245,104 @@
         filtrarProductos();
       }
     }
+
+function renderizarAlertaCredito(cliente) {
+  const container = document.getElementById('alertaCredito');
+  if (!container) return;
+
+  if (cliente.creditoExcedido) {
+    container.style.display = 'inline-flex';
+    container.className = 'credit-alert-badge credit-alert-danger';
+    container.innerHTML = `⚠️ CRÉDITO EXCEDIDO (${cliente.porcentajeUso}% utilizado)`;
+  } else if (cliente.creditoCasiAlLimite) {
+    container.style.display = 'inline-flex';
+    container.className = 'credit-alert-badge credit-alert-warning';
+    container.innerHTML = `⚠️ LÍNEA AL LÍMITE (${cliente.porcentajeUso}% utilizado)`;
+  } else {
+    container.style.display = 'none';
+    container.innerHTML = '';
+  }
+}
+
+
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/novovet.cl/s/AKfycbxNFB8hD708yD7H1FY3sH9miHxzzllF4srjoNpIOYPgG_gwt0wSPUWI7-1xxH13nTt3rw/exec';
+
+  // Abrir Modal de Solicitud Nuevo Cliente
+  function abrirModalCrearCliente() {
+    const modal = document.getElementById('modalCrearCliente');
+    if (modal) modal.style.display = 'flex';
+  }
+
+  // Cerrar Modal de Solicitud Nuevo Cliente
+  function cerrarModalCrearCliente() {
+    const modal = document.getElementById('modalCrearCliente');
+    if (modal) modal.style.display = 'none';
+    
+    const form = document.getElementById('formCrearCliente');
+    if (form) form.reset();
+  }
+
+  // Enviar Solicitud de Registro de Cliente
+ let enviandoFormulario = false;
+
+async function enviarSolicitudCliente(e) {
+  if (e) e.preventDefault();
+
+  // Bloqueo de seguridad para evitar envíos dobles o clics rápidos
+  if (enviandoFormulario) return;
+  enviandoFormulario = true;
+
+  const btn = document.getElementById('btnEnviarCliente');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = 'Enviando...';
+  }
+
+  const datosCliente = {
+    rut: document.getElementById('solRut')?.value || '',
+    razonSocial: document.getElementById('solRazonSocial')?.value || '',
+    nombreFantasia: document.getElementById('solNombreFantasia')?.value || '',
+    identificacion: document.getElementById('solTipoIdentificacion')?.value || '',
+    giro: document.getElementById('solGiro')?.value || '',
+    direccion: document.getElementById('solDireccion')?.value || '',
+    comuna: document.getElementById('solComuna')?.value || '',
+    telefono: document.getElementById('solTelefono')?.value || '',
+    encargadoCobranza: document.getElementById('solEncargadoCobranza')?.value || '',
+    correo: document.getElementById('solCorreo')?.value || '',
+    vendedor: document.getElementById('solVendedor')?.value || ''
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datosCliente)
+    });
+
+    alert('✅ Solicitud enviada exitosamente a cobranza@novovet.cl');
+    cerrarModalCrearCliente();
+  } catch (err) {
+    console.error('Error al enviar la solicitud:', err);
+    alert('❌ Ocurrió un error al enviar la solicitud. Intenta nuevamente.');
+  } finally {
+    enviandoFormulario = false;
+    if (btn) {
+      btn.disabled = false;
+      btn.innerText = 'Enviar Solicitud';
+    }
+  }
+}
+
+// Asignación directa limpia para sobreescribir cualquier asignación doble previa
+document.addEventListener('DOMContentLoaded', function() {
+  const formCrearCliente = document.getElementById('formCrearCliente');
+  if (formCrearCliente) {
+    formCrearCliente.onsubmit = enviarSolicitudCliente;
+  }
+});
+
+
 
     function limpiarBusqueda() {
       const input = document.getElementById('searchInput');
